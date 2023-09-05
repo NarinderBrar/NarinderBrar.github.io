@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body class="template-color-1 spybody" data-spy="scroll" data-target=".navbar-example2" data-offset="70">
+<body class="template-color-1 spybody white-version" data-spy="scroll" data-target=".navbar-example2" data-offset="150">
 
     <!-- Start Header -->
     <header class="rn-header haeder-default black-logo-version header--fixed header--sticky">
@@ -31,7 +31,7 @@
                 <div class="header-left">
                     <div class="logo">
                         <a href="index.html">
-                            <img src="assets/images/logo/logo.png" alt="logo">
+                            <img src="assets/images/logo/logo-dark.png" alt="logo">
                         </a>
                     </div>
                 </div>
@@ -43,11 +43,11 @@
                     <nav id="sideNav" class="mainmenu-nav navbar-example2 d-none d-xl-block onepagenav">
                         <!-- Start Mainmanu Nav -->
                         <ul class="primary-menu nav nav-pills">
-                            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                            <li class="nav-item current"><a class="nav-link" href="#home">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
                             <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                             <li class="nav-item"><a class="nav-link" href="#resume">Resume</a></li>
-                            <li class="nav-item current"><a class="nav-link" href="http://localhost:3000/#clients">Clients</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#clients">Clients</a></li>
                             <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
                             <li class="nav-item"><a class="nav-link" href="#blog">blog</a></li>
                             <li class="nav-item"><a class="nav-link" href="#contacts">Contact</a></li>
@@ -511,6 +511,7 @@
             </div>
         </div>
         <!-- End portfolio Area -->
+
         <!-- Start Resume Area -->
         <div class="rn-resume-area rn-section-gap section-separator" id="resume">
             <div class="container">
@@ -1138,18 +1139,19 @@
             </div>
         </div>
         <!-- End Resume Area -->
+
         <!-- Start Testimonia Area  -->
         <div class="rn-testimonial-area rn-section-gap section-separator" id="testimonial">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="section-title text-center">
+                        <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="section-title text-center">
                             <span class="subtitle">What Clients Say</span>
                             <h2 class="title">Testimonial</h2>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" data-aos="fade-up" data-aos-duration="500" data-aos-delay="300" data-aos-once="true">
                     <div class="col-lg-12">
                         <div class="testimonial-activation testimonial-pb mb--30">
                             <!-- Start Single testiminail -->
@@ -1350,6 +1352,7 @@
             </div>
         </div>
         <!-- End Testimonia Area  -->
+
         <!-- Start Client Area -->
         <div class="rn-client-area rn-section-gap section-separator" id="clients">
             <div class="container">
@@ -1369,30 +1372,30 @@
                                 <ul class="nav tab-navigation-button flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
 
                                     <li class="nav-item">
-                                        <a class="nav-link" id="v-pills-home-tab" data-bs-toggle="tab" href="#v-pills-Javascript" role="tab" aria-selected="true">JavaScript</a>
+                                        <a class="nav-link" id="v-pills-home-tab" data-bs-toggle="tab" href="#v-pills-Javascript" role="tab" aria-controls="javascript" aria-selected="true">JavaScript</a>
                                     </li>
 
 
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="tab" href="#v-pills-Design" role="tab" aria-selected="true">Product Design</a>
+                                        <a class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="tab" href="#v-pills-Design" role="tab" aria-controls="design" aria-selected="true">Product Design</a>
                                     </li>
 
 
                                     <li class="nav-item">
-                                        <a class="nav-link" id="v-pills-wordpress-tab" data-bs-toggle="tab" href="#v-pills-Wordpress" role="tab" aria-selected="true">Wordpress</a>
+                                        <a class="nav-link" id="v-pills-wordpress-tab" data-bs-toggle="tab" href="#v-pills-Wordpress" role="tab" aria-controls="wordpress" aria-selected="true">Wordpress</a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" id="v-pills-settings-tabs" data-bs-toggle="tab" href="#v-pills-settings" role="tab" aria-selected="true">HTML to React</a>
+                                        <a class="nav-link" id="v-pills-settings-tabs" data-bs-toggle="tab" href="#v-pills-settings" role="tab" aria-controls="react" aria-selected="true">HTML to React</a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" id="v-pills-laravel-tabs" data-bs-toggle="tab" href="#v-pills-laravel" role="tab" aria-selected="true">React
+                                        <a class="nav-link" id="v-pills-laravel-tabs" data-bs-toggle="tab" href="#v-pills-laravel" role="tab" aria-controls="laravel" aria-selected="true">React
                                             To Laravel</a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" id="v-pills-python-tabs" data-bs-toggle="tab" href="#v-pills-python" role="tab" aria-selected="true">Python</a>
+                                        <a class="nav-link" id="v-pills-python-tabs" data-bs-toggle="tab" href="#v-pills-python" role="tab" aria-controls="python" aria-selected="true">Python</a>
                                     </li>
 
 
@@ -1413,7 +1416,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">John Due</a></span>
@@ -1426,7 +1429,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-02.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Smiths Marth</a></span>
@@ -1439,7 +1442,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-03.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Add Dev</a></span>
@@ -1452,7 +1455,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client4.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-04.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Jone Due</a></span>
@@ -1465,7 +1468,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">John Due</a></span>
@@ -1478,7 +1481,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-05.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Adon Smith</a></span>
@@ -1491,7 +1494,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Smitha Mila</a></span>
@@ -1504,7 +1507,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-02.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Sultana Mila</a></span>
@@ -1517,7 +1520,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Jannat</a></span>
@@ -1530,7 +1533,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-05.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Mila Dus</a></span>
@@ -1543,7 +1546,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Marth Smiths</a></span>
@@ -1556,7 +1559,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-03.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Marth Smiths</a></span>
@@ -1575,7 +1578,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">John Due</a></span>
@@ -1588,7 +1591,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-02.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Smiths Marth</a></span>
@@ -1601,7 +1604,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-03.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Add Dev</a></span>
@@ -1614,7 +1617,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client4.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-04.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Jone Due</a></span>
@@ -1627,7 +1630,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">John Due</a></span>
@@ -1640,7 +1643,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-05.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Adon Smith</a></span>
@@ -1653,7 +1656,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Smitha Mila</a></span>
@@ -1666,7 +1669,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-02.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Sultana Mila</a></span>
@@ -1679,7 +1682,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Jannat</a></span>
@@ -1692,7 +1695,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-05.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Mila Dus</a></span>
@@ -1705,7 +1708,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Marth Smiths</a></span>
@@ -1718,7 +1721,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-03.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Marth Smiths</a></span>
@@ -1737,7 +1740,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">John Due</a></span>
@@ -1750,7 +1753,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-02.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Smiths Marth</a></span>
@@ -1763,7 +1766,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-03.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Add Dev</a></span>
@@ -1776,7 +1779,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client4.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-04.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Jone Due</a></span>
@@ -1789,7 +1792,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">John Due</a></span>
@@ -1802,7 +1805,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-05.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Adon Smith</a></span>
@@ -1815,7 +1818,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Smitha Mila</a></span>
@@ -1828,7 +1831,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-02.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Sultana Mila</a></span>
@@ -1841,7 +1844,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Jannat</a></span>
@@ -1854,7 +1857,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-05.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Mila Dus</a></span>
@@ -1867,7 +1870,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Marth Smiths</a></span>
@@ -1880,7 +1883,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-03.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Marth Smiths</a></span>
@@ -1899,7 +1902,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">John Due</a></span>
@@ -1912,7 +1915,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-02.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Smiths Marth</a></span>
@@ -1925,7 +1928,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-03.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Add Dev</a></span>
@@ -1938,7 +1941,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client4.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-04.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Jone Due</a></span>
@@ -1951,7 +1954,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">John Due</a></span>
@@ -1964,7 +1967,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-05.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Adon Smith</a></span>
@@ -1977,7 +1980,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Smitha Mila</a></span>
@@ -1990,7 +1993,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-02.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Sultana Mila</a></span>
@@ -2003,7 +2006,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Jannat</a></span>
@@ -2016,7 +2019,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-05.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Mila Dus</a></span>
@@ -2029,7 +2032,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Marth Smiths</a></span>
@@ -2042,7 +2045,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-03.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Marth Smiths</a></span>
@@ -2061,7 +2064,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">John Due</a></span>
@@ -2074,7 +2077,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-02.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Smiths Marth</a></span>
@@ -2087,7 +2090,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-03.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Add Dev</a></span>
@@ -2100,7 +2103,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client4.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-04.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Jone Due</a></span>
@@ -2113,7 +2116,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">John Due</a></span>
@@ -2126,7 +2129,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-05.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Adon Smith</a></span>
@@ -2139,7 +2142,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Smitha Mila</a></span>
@@ -2152,7 +2155,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-02.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Sultana Mila</a></span>
@@ -2165,7 +2168,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Jannat</a></span>
@@ -2178,7 +2181,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-05.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Mila Dus</a></span>
@@ -2191,7 +2194,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Marth Smiths</a></span>
@@ -2204,7 +2207,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-03.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Marth Smiths</a></span>
@@ -2223,7 +2226,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">John Due</a></span>
@@ -2236,7 +2239,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-02.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Smiths Marth</a></span>
@@ -2249,7 +2252,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-03.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Add Dev</a></span>
@@ -2262,7 +2265,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client4.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-04.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Jone Due</a></span>
@@ -2275,7 +2278,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">John Due</a></span>
@@ -2288,7 +2291,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-05.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Adon Smith</a></span>
@@ -2301,7 +2304,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Smitha Mila</a></span>
@@ -2314,7 +2317,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-02.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Sultana Mila</a></span>
@@ -2327,7 +2330,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Jannat</a></span>
@@ -2340,7 +2343,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-05.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Mila Dus</a></span>
@@ -2353,7 +2356,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-01.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Marth Smiths</a></span>
@@ -2366,7 +2369,7 @@
                                             <div class="main-content">
                                                 <div class="inner text-center">
                                                     <div class="thumbnail">
-                                                        <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
+                                                        <a href="#"><img src="assets/images/client/png/brand-03.png" alt="Client-image"></a>
                                                     </div>
                                                     <div class="seperator"></div>
                                                     <div class="client-name"><span><a href="#">Marth Smiths</a></span>
@@ -2386,6 +2389,7 @@
             </div>
         </div>
         <!-- End client section -->
+
         <!-- Pricing Area -->
         <div class="rn-pricing-area rn-section-gap section-separator" id="pricing">
             <div class="container">
@@ -2889,6 +2893,7 @@
             </div>
         </div>
         <!-- End Contuct section -->
+
         <!-- Modal Portfolio Body area Start -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -3048,6 +3053,7 @@
             </div>
         </div>
         <!-- Back to top end -->
+
         <!-- Start Right Demo  -->
         <div class="rn-right-demo">
             <button class="demo-button">
@@ -3726,19 +3732,18 @@
         <!-- End Modal Area  -->
 
     </main>
+
     <!-- Start Footer Area -->
     <div class="rn-footer-area rn-section-gap section-separator">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer-area text-center">
-
                         <div class="logo">
                             <a href="index.html">
-                                <img src="assets/images/logo/logo-vertical.png" alt="logo">
+                                <img src="assets/images/logo/logo-vertical-dark.png" alt="logo">
                             </a>
                         </div>
-
                         <p class="description mt--30">© 2022. All rights reserved by <a target="_blank" href="https://themeforest.net/user/rainbow-themes/portfolio">Rainbow-Themes.</a></p>
                     </div>
                 </div>
@@ -3746,6 +3751,7 @@
         </div>
     </div>
     <!-- End Footer Area -->
+
     <!-- JS ============================================ -->
     <script src="assets/js/vendor/jquery.js"></script>
     <script src="assets/js/vendor/modernizer.min.js"></script>
