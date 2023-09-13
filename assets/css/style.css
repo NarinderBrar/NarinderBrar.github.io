@@ -19704,4 +19704,10 @@ body.white-version .rn-btn-ulderline {
 .white-version .slider-style-6 .cd-headline span {
   color: var(--color-white) !important;
 }
+
+ul.slick-dots, .white-version .testimonial-activation .slick-dots li.slick-active button, .white-version .testimonial .inner .card-description::before{
+  display: none !important;
+}
+
+
 /*# sourceMappingURL=../maps/style.css.map */
