@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PoseGen Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body>
+<main class="deck">
+
+<!-- 1 · Title -->
+<section class="slide hero">
+  <img class="hero-img" src="img/posegen.jpg" alt="PoseGen outputs: realistic render, depth, segmentation, object pose and camera parameters">
+  <div class="hero-shade"></div>
+  <div class="hero-cap">github.com/NarinderBrar/PoseGen</div>
+  <div class="wrap">
+      <div class="kicker">Project 5 · Research tool</div>
+      <h1>PoseGen</h1>
+      <p class="lede">A synthetic dataset generator for training 6D object-pose networks for robot grasping. It renders photorealistic images with exact labels that would be impossible to annotate by hand.</p>
+      <div class="pills"><span class="pill">Python</span><span class="pill">Blender bpy</span><span class="pill">Cycles</span><span class="pill">Compositor nodes</span><span class="pill">Shapely</span><span class="pill">JSON</span></div>
+      <div class="stats">
+        <div class="stat"><b>6D</b><span>pose per object</span></div>
+        <div class="stat"><b>4</b><span>outputs per sample</span></div>
+        <div class="stat"><b>K</b><span>calibration matrix</span></div>
+        <div class="stat"><b>0</b><span>manual labels</span></div>
+      </div>
+  </div>
+</section>
+
+<!-- 2 · Features -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">What I built</div>
+    <h2>What every sample contains</h2>
+    <div class="feats">
+      <div class="feat"><h3><span class="n">01</span>Photoreal render</h3><p>Blender Cycles path tracing, so networks trained on it transfer better to real images.</p></div>
+      <div class="feat"><h3><span class="n">02</span>Depth map</h3><p>From the compositor's Z pass, with configurable FOV, resolution and depth threshold.</p></div>
+      <div class="feat"><h3><span class="n">03</span>Segmentation</h3><p>Per-pixel object mask, rendered from the same camera.</p></div>
+      <div class="feat"><h3><span class="n">04</span>6D object pose</h3><p>The object's 3×4 world matrix (rotation + translation) per sample.</p></div>
+      <div class="feat"><h3><span class="n">05</span>Camera parameters</h3><p>Extrinsics as translation + quaternion, and the intrinsic matrix K computed from lens and sensor.</p></div>
+      <div class="feat"><h3><span class="n">06</span>Object contours</h3><p>Projected silhouette polygon, from a union of the evaluated mesh's projected faces.</p></div>
+      <div class="feat"><h3><span class="n">07</span>Pose randomisation</h3><p>Randomised object placement per sample, to cover the pose space.</p></div>
+      <div class="feat"><h3><span class="n">08</span>One-command pipeline</h3><p><code>DatasetGenerator.py</code> runs render → contours → depth → export for N samples.</p></div>
+      <div class="feat"><h3><span class="n">09</span>Research use</h3><p>Built at IITL for robot manipulation research, inspired by the YCB benchmark.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · Pipeline -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Architecture</div>
+    <h2>A batch pipeline inside Blender</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1000 330" role="img" aria-label="DatasetGenerator runs five stages for each sample: randomise pose, render with Cycles, extract contours, generate depth and export labels as JSON">
+        <defs><marker id="pg3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g id="g_orchestrator">
+          <rect x="30" y="30" width="940" height="44" rx="6" class="acc thick"/>
+          <text x="46" y="57" class="h">DatasetGenerator.py</text><text x="260" y="57" class="a sm">for each of N samples · paths set once · runs inside Blender</text>
+        </g>
+        <g id="g_stages">
+          <rect x="30" y="130" width="160" height="80" rx="4"/><text x="44" y="156" class="h">① randomise</text><text x="44" y="176" class="m sm">object pose</text><text x="44" y="192" class="m sm">camera · scene</text>
+          <rect x="220" y="130" width="160" height="80" rx="4"/><text x="234" y="156" class="h">② render</text><text x="234" y="176" class="m sm">Cycles</text><text x="234" y="192" class="m sm">photoreal RGB</text>
+          <rect x="410" y="130" width="170" height="80" rx="4"/><text x="424" y="156" class="h">③ contours</text><text x="424" y="176" class="m sm">evaluated mesh</text><text x="424" y="192" class="m sm">→ project → union</text>
+          <rect x="610" y="130" width="160" height="80" rx="4"/><text x="624" y="156" class="h">④ depth</text><text x="624" y="176" class="m sm">compositor Z</text><text x="624" y="192" class="m sm">threshold · scale</text>
+          <rect x="800" y="130" width="170" height="80" rx="4"/><text x="814" y="156" class="h">⑤ export</text><text x="814" y="176" class="m sm">pose · K · extr.</text><text x="814" y="192" class="m sm">contours → JSON</text>
+          <line x1="190" y1="170" x2="216" y2="170" marker-end="url(#pg3)"/><line x1="380" y1="170" x2="406" y2="170" marker-end="url(#pg3)"/>
+          <line x1="580" y1="170" x2="606" y2="170" marker-end="url(#pg3)"/><line x1="770" y1="170" x2="796" y2="170" marker-end="url(#pg3)"/>
+          <line x1="110" y1="74" x2="110" y2="126" class="dash" marker-end="url(#pg3)"/><line x1="885" y1="210" x2="885" y2="250" class="dash" marker-end="url(#pg3)"/>
+        </g>
+        <g id="g_out">
+          <polygon points="700,268 960,268 972,256 712,256" class="tint"/><polygon points="700,268 960,268 972,256 712,256"/><polygon points="960,268 972,256 972,286 960,298"/><rect x="700" y="268" width="260" height="30"/>
+          <text x="710" y="288" class="sm">exported-data/ · one set per sample</text>
+          <text x="30" y="258" class="sm">Blender is both the renderer and the geometry engine: the same scene</text>
+          <text x="30" y="276" class="sm">gives the image, the depth, the mask and the exact ground truth.</text>
+        </g>
+      </svg>
+      <figcaption>Every label comes from the same scene and camera as the image, so the ground truth is exact by construction. There's no annotation error and no human labelling cost.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 4 · Decisions -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Design decisions</div>
+    <h2>What I chose, and what I didn't</h2>
+    <div class="tbl"><table class="dec">
+      <thead><tr><th>Decision</th><th>Rejected</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Synthetic data</td><td>Hand-labelled photos</td><td>6D pose can't be labelled accurately by hand; synthetic labels are exact and free</td></tr>
+        <tr><td>Cycles path tracing</td><td>Fast rasterised renders</td><td>Photorealism narrows the sim-to-real gap</td></tr>
+        <tr><td>Scripted Blender (bpy)</td><td>A custom renderer</td><td>Production-quality lighting, materials and assets for free</td></tr>
+        <tr><td>Contours from projected mesh faces</td><td>Tracing the mask image</td><td>Vector-accurate silhouettes, independent of image resolution</td></tr>
+        <tr><td>K computed from lens + sensor</td><td>Hard-coded intrinsics</td><td>Stays correct when resolution, focal length or sensor fit changes</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- 5 · Projection -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Feature · camera model</div>
+    <h2>From a 3D pose to a labelled pixel</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1000 360" role="img" aria-label="An object point is transformed by the object pose, then by the camera extrinsics into camera space, then by the intrinsic matrix K onto the image plane">
+        <defs><marker id="pg5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g id="g_camera">
+          <circle cx="80" cy="190" r="18" class="hi"/><text x="52" y="232" class="m sm">camera</text>
+          <line x1="98" y1="184" x2="420" y2="70" class="dash"/><line x1="98" y1="196" x2="420" y2="310" class="dash"/>
+        </g>
+        <g id="g_plane">
+          <polygon points="220,120 280,98 280,262 220,284" class="tint"/><polygon points="220,120 280,98 280,262 220,284"/>
+          <line x1="235" y1="114" x2="235" y2="278" class="fade"/><line x1="250" y1="109" x2="250" y2="273" class="fade"/><line x1="265" y1="103" x2="265" y2="267" class="fade"/>
+          <text x="198" y="304" class="m sm">image plane</text>
+          <circle cx="250" cy="166" r="4" class="accsolid"/><text x="258" y="160" class="a sm">(u, v)</text>
+        </g>
+        <g id="g_object">
+          <polygon points="360,130 420,110 460,140 400,160" class="hi"/><polygon points="360,130 360,190 400,220 400,160" class="hi"/><polygon points="400,160 460,140 460,200 400,220" class="hi"/>
+          <circle cx="420" cy="140" r="4" class="acc thick"/><text x="372" y="98" class="a sm">P (object point)</text>
+          <line x1="416" y1="141" x2="256" y2="165" class="acc" marker-end="url(#pg5)"/>
+          <line x1="400" y1="220" x2="460" y2="220" class="m" marker-end="url(#pg5)"/><line x1="400" y1="220" x2="400" y2="264" marker-end="url(#pg5)"/>
+          <text x="352" y="286" class="m sm">object frame</text>
+        </g>
+        <g id="g_math">
+          <rect x="560" y="50" width="410" height="270" rx="6"/>
+          <text x="580" y="80" class="h">The chain</text>
+          <text x="580" y="110" class="pre sm">P_world  = M_obj · P          (3×4 pose)</text>
+          <text x="580" y="134" class="pre sm">P_cam    = R⁻¹ (P_world − t)   (extrinsics)</text>
+          <text x="580" y="158" class="pre a sm">[u v 1]ᵀ ∝ K · P_cam           (intrinsics)</text>
+          <line x1="580" y1="178" x2="950" y2="178" class="fade"/>
+          <text x="580" y="204" class="pre sm">K = | α_u   0   u₀ |</text>
+          <text x="580" y="224" class="pre sm">    |  0   α_v  v₀ |</text>
+          <text x="580" y="244" class="pre sm">    |  0    0    1 |</text>
+          <text x="580" y="272" class="m sm">α = focal(mm) × pixels per mm · u₀,v₀ = centre</text>
+          <text x="580" y="292" class="m sm">exported: pose 12 · extrinsics 7 · K 9 values</text>
+        </g>
+      </svg>
+      <figcaption>It's the same math as a vertex shader (model → view → projection), done in Python to produce labels instead of pixels. The network learns the inverse: from pixels back to P and M_obj.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6 · Contours -->
+<section class="slide">
+  <div class="wrap grid2">
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 520 380" role="img" aria-label="Projected mesh faces overlap as many small polygons; a buffered union merges them into one clean silhouette polygon">
+        <defs><marker id="pg6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g id="g_faces">
+          <text x="10" y="26" class="h">① projected faces</text>
+          <polygon points="40,70 90,50 110,95 60,110"/><polygon points="90,50 150,45 160,90 110,95"/><polygon points="60,110 110,95 120,150 70,160"/><polygon points="110,95 160,90 170,145 120,150"/>
+          <polygon points="70,160 120,150 125,200 80,205"/><polygon points="120,150 170,145 175,195 125,200"/>
+          <text x="10" y="236" class="m sm">evaluated mesh (modifiers applied)</text><text x="10" y="252" class="m sm">→ camera projection per face</text>
+        </g>
+        <g id="g_union">
+          <text x="280" y="26" class="h">② buffered union</text>
+          <polygon points="310,70 360,50 420,45 430,90 440,145 445,195 395,200 350,205 340,160 330,110" class="acc thick"/>
+          <circle cx="310" cy="70" r="3" class="accsolid"/><circle cx="360" cy="50" r="3" class="accsolid"/><circle cx="420" cy="45" r="3" class="accsolid"/><circle cx="430" cy="90" r="3" class="accsolid"/><circle cx="440" cy="145" r="3" class="accsolid"/><circle cx="445" cy="195" r="3" class="accsolid"/><circle cx="395" cy="200" r="3" class="accsolid"/><circle cx="350" cy="205" r="3" class="accsolid"/><circle cx="340" cy="160" r="3" class="accsolid"/><circle cx="330" cy="110" r="3" class="accsolid"/>
+          <text x="280" y="236" class="a sm">one silhouette polygon</text><text x="280" y="252" class="m sm">Shapely unary union + small buffer</text>
+          <line x1="186" y1="130" x2="270" y2="130" marker-end="url(#pg6)" class="hi"/>
+        </g>
+        <g id="g_note">
+          <text x="10" y="300" class="sm">why a buffer: tiny gaps between projected faces</text>
+          <text x="10" y="318" class="sm">would split the union into slivers; a small positive</text>
+          <text x="10" y="336" class="sm">buffer closes them, then the outline is exported</text>
+          <text x="10" y="354" class="m sm">works for concave objects with thousands of faces</text>
+        </g>
+      </svg>
+    </figure>
+    <div>
+      <div class="kicker">Feature · labels</div>
+      <h2>Contours from geometry, not pixels</h2>
+      <figure class="shot"><img src="img/posegen-2.jpg" alt="Contour extraction on a chair, and the robot's view"><figcaption>contour extraction · object and robot view</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · Sample record -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Data layout</div>
+    <h2>What one sample stores</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1000 330" role="img" aria-label="Each sample stores an RGB image, a depth map, a mask, and a JSON record with the 12-value object pose, the 7-value camera extrinsics, the 9-value intrinsic matrix and the contour polygon">
+        <g id="g_images">
+          <text x="30" y="30" class="h">images · same camera, same frame</text>
+          <rect x="30" y="44" width="150" height="100"/><text x="40" y="164" class="sm">RGB · Cycles</text>
+          <line x1="30" y1="120" x2="100" y2="80" class="fade"/><line x1="100" y1="80" x2="180" y2="110" class="fade"/>
+          <rect x="200" y="44" width="150" height="100" class="dash"/><text x="210" y="164" class="sm">depth · Z pass</text>
+          <rect x="370" y="44" width="150" height="100"/><ellipse cx="445" cy="98" rx="46" ry="22" class="acctint"/><text x="380" y="164" class="sm">mask · segmentation</text>
+        </g>
+        <g id="g_json">
+          <text x="30" y="214" class="h">JSON record · floats</text>
+          <rect x="30" y="226" width="240" height="36"/><text x="40" y="249" class="sm">object pose · 12 (3×4)</text>
+          <rect x="270" y="226" width="140" height="36"/><text x="280" y="249" class="sm">extr. · 7</text>
+          <rect x="410" y="226" width="180" height="36"/><text x="420" y="249" class="sm">K · 9 (3×3)</text>
+          <rect x="590" y="226" width="220" height="36" class="acc"/><text x="600" y="249" class="a sm">contour · N × (u, v)</text>
+          <text x="270" y="282" class="m sm">t.xyz + q.xyzw</text>
+          <text x="410" y="282" class="m sm">from lens + sensor</text>
+          <text x="590" y="282" class="m sm">variable length</text>
+        </g>
+        <g id="g_next">
+          <text x="600" y="60" class="sm">format I'd move to next:</text>
+          <text x="600" y="80" class="sm">BOP / COCO-style annotations,</text>
+          <text x="600" y="100" class="sm">so standard pose-estimation</text>
+          <text x="600" y="120" class="sm">tooling can read it directly</text>
+        </g>
+      </svg>
+      <figcaption>Everything a pose network needs, generated together: the input image, the auxiliary signals (depth and mask), and the exact targets (pose, camera, silhouette).</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 8 · Next -->
+<section class="slide">
+  <div class="wrap grid2">
+    <div>
+      <div class="kicker">Honest limits &amp; next steps</div>
+      <h2>From research tool to data pipeline</h2>
+      <ul class="pts">
+        <li><b>Portability:</b> remove the hard-coded Windows paths and move settings to a config file.</li>
+        <li><b>Domain randomisation:</b> randomise lighting, backgrounds and textures too, not just pose.</li>
+        <li><b>Scale:</b> run headless in parallel containers, one worker per sample batch.</li>
+        <li><b>Standards:</b> export BOP / COCO annotations.</li>
+        <li><b>Validation:</b> fine-tune on a small real set to measure the sim-to-real gap.</li>
+      </ul>
+      <p class="note">The shape of this pipeline (generate, process, label, export, in batches) is the same shape as an imagery ingestion pipeline feeding AI downstream services.</p>
+    </div>
+    <figure class="shot"><img src="img/posegen-3.jpg" alt="PoseGen scene with a tyre and its extracted contour"><figcaption>contour labels on a tyre in a garage scene</figcaption></figure>
+  </div>
+</section>
+
+</main>
+<script src="assets/deck.js"></script>
+</body>
+</html>

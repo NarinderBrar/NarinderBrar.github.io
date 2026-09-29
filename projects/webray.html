@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WebRay Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body>
+<main class="deck">
+
+<!-- 1 · Title -->
+<section class="slide hero">
+  <img class="hero-img" src="img/webray.jpg" alt="WebRay ray-traced render">
+  <div class="hero-shade"></div>
+  <div class="hero-cap">github.com/NarinderBrar/WebRay · 6144×2780 FSR export</div>
+  <div class="wrap">
+      <div class="kicker">Project 3 · Open source</div>
+      <h1>WebRay</h1>
+      <p class="lede">A ray tracer written as a WebGPU compute shader. It plugs into any Babylon.js scene in three lines and traces it in real time, with soft shadows, reflections, refraction and ambient occlusion.</p>
+      <div class="pills"><span class="pill">WebGPU compute</span><span class="pill">WGSL</span><span class="pill">TypeScript</span><span class="pill">React</span><span class="pill">Babylon.js</span><span class="pill">AMD FSR 1</span></div>
+      <div class="stats">
+        <div class="stat"><b>SAH</b><span>BVH, 12 buckets</span></div>
+        <div class="stat"><b>1–128</b><span>accumulated frames</span></div>
+        <div class="stat"><b>½</b><span>pixels per frame (checkerboard)</span></div>
+        <div class="stat"><b>4×</b><span>FSR export upscale</span></div>
+      </div>
+  </div>
+</section>
+
+<!-- 2 · Features -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">What I built</div>
+    <h2>Features</h2>
+    <div class="feats">
+      <div class="feat"><h3><span class="n">01</span>Compute ray tracer</h3><p>One WGSL compute kernel (8×8 workgroups): ray generation with AA jitter, traversal, shading.</p></div>
+      <div class="feat"><h3><span class="n">02</span>SAH BVH</h3><p>Built on the CPU with bucketed SAH, max 8 triangles per leaf, flattened for the GPU.</p></div>
+      <div class="feat"><h3><span class="n">03</span>Lighting</h3><p>Soft shadows (1–8 samples), sky and ambient occlusion, emissive lights, day/night sun.</p></div>
+      <div class="feat"><h3><span class="n">04</span>PBR materials</h3><p>Colour, roughness, metallic, transparency, IOR; glass, water and diamond presets.</p></div>
+      <div class="feat"><h3><span class="n">05</span>Reflection &amp; refraction</h3><p>Secondary rays with Snell's law and configurable quality.</p></div>
+      <div class="feat"><h3><span class="n">06</span>Temporal accumulation</h3><p>Progressive refinement while still; resets automatically when the camera moves.</p></div>
+      <div class="feat"><h3><span class="n">07</span>Checkerboard + TAA</h3><p>Half the pixels per frame, the rest interpolated and blended.</p></div>
+      <div class="feat"><h3><span class="n">08</span>FSR export</h3><p>EASU edge-adaptive upscale plus RCAS sharpening for 1–4× high-resolution renders.</p></div>
+      <div class="feat"><h3><span class="n">09</span>Tooling</h3><p>React control panel, material editor, OBJ import, debug views, a WGSL <code>#include</code> build step.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · Architecture -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Architecture</div>
+    <h2>CPU prepares the scene once, the GPU traces every frame</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1000 350" role="img" aria-label="The CPU extracts triangles and materials from the Babylon scene and builds a BVH into GPU buffers; each frame a compute shader traces rays, the result is accumulated and displayed or upscaled for export">
+        <defs><marker id="wr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g id="g_lanes"><text x="20" y="74" class="m sm">CPU</text><text x="20" y="194" class="m sm">GPU MEM</text><text x="20" y="300" class="m sm">GPU</text>
+          <line x1="90" y1="120" x2="990" y2="120" class="dot fade"/><line x1="90" y1="244" x2="990" y2="244" class="dot fade"/></g>
+        <g id="g_cpu">
+          <rect x="110" y="46" width="170" height="52" rx="4"/><text x="124" y="68" class="h">Babylon scene</text><text x="124" y="86" class="m sm">meshes · lights</text>
+          <rect x="330" y="46" width="200" height="52" rx="4"/><text x="344" y="68" class="h">SceneDataBuilder</text><text x="344" y="86" class="m sm">tris · material ids</text>
+          <rect x="580" y="46" width="190" height="52" rx="4" class="acc thick"/><text x="594" y="68" class="h">BVHBuilder</text><text x="594" y="86" class="a sm">SAH · flatten</text>
+          <line x1="280" y1="72" x2="326" y2="72" marker-end="url(#wr3)"/><line x1="530" y1="72" x2="576" y2="72" marker-end="url(#wr3)"/>
+          <text x="790" y="68" class="m sm">rebuilt only when</text><text x="790" y="84" class="m sm">geometry changes</text>
+        </g>
+        <g id="g_buffers">
+          <polygon points="330,180 450,180 462,168 342,168" class="tint"/><polygon points="330,180 450,180 462,168 342,168"/><polygon points="450,180 462,168 462,196 450,208"/><rect x="330" y="180" width="120" height="28"/><text x="340" y="199" class="sm">triangles</text>
+          <polygon points="490,180 610,180 622,168 502,168" class="tint"/><polygon points="490,180 610,180 622,168 502,168"/><polygon points="610,180 622,168 622,196 610,208"/><rect x="490" y="180" width="120" height="28"/><text x="500" y="199" class="sm">materials</text>
+          <polygon points="650,180 770,180 782,168 662,168" class="tint"/><polygon points="650,180 770,180 782,168 662,168"/><polygon points="770,180 782,168 782,196 770,208"/><rect x="650" y="180" width="120" height="28"/><text x="660" y="199" class="sm">BVH nodes</text>
+          <polygon points="810,180 930,180 942,168 822,168" class="tint"/><polygon points="810,180 930,180 942,168 822,168"/><polygon points="930,180 942,168 942,196 930,208"/><rect x="810" y="180" width="120" height="28"/><text x="820" y="199" class="sm">camera · scene</text>
+          <line x1="410" y1="98" x2="390" y2="164" marker-end="url(#wr3)"/><line x1="470" y1="98" x2="545" y2="164" marker-end="url(#wr3)"/><line x1="675" y1="98" x2="705" y2="164" marker-end="url(#wr3)"/>
+          <text x="820" y="228" class="m sm">uniforms / frame</text>
+        </g>
+        <g id="g_gpu">
+          <rect x="110" y="266" width="220" height="64" rx="6" class="acc thick"/><text x="124" y="290" class="h">raytrace.comp</text><text x="124" y="310" class="a sm">8×8 · 1 thread / pixel</text>
+          <rect x="390" y="266" width="170" height="64" rx="4"/><text x="404" y="290" class="h">accumulate</text><text x="404" y="310" class="m sm">mix(hist, cur, 1/n)</text>
+          <rect x="620" y="266" width="140" height="64" rx="4"/><text x="634" y="290" class="h">display</text><text x="634" y="310" class="m sm">post-process</text>
+          <rect x="820" y="266" width="150" height="64" rx="4" class="dash"/><text x="834" y="290" class="h">FSR export</text><text x="834" y="310" class="m sm">EASU → RCAS</text>
+          <line x1="330" y1="298" x2="386" y2="298" marker-end="url(#wr3)"/><line x1="560" y1="298" x2="616" y2="298" marker-end="url(#wr3)"/><line x1="760" y1="298" x2="816" y2="298" marker-end="url(#wr3)" class="dash"/>
+          <line x1="390" y1="210" x2="240" y2="262" marker-end="url(#wr3)" class="hi"/><text x="240" y="236" class="m sm">read</text>
+        </g>
+      </svg>
+      <figcaption>It integrates into any Babylon.js WebGPU scene with <code>new WebRay({ scene, light })</code>, <code>init()</code>, <code>start()</code>, and you can toggle between the ray-traced and raster views live.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 4 · Decisions -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Architecture decisions</div>
+    <h2>What I chose, and what I didn't</h2>
+    <div class="tbl"><table class="dec">
+      <thead><tr><th>Decision</th><th>Rejected</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Compute shader tracing</td><td>Fragment-shader tracing</td><td>Storage buffers, workgroup control, write to any pixel; the natural fit for WebGPU</td></tr>
+        <tr><td>BVH</td><td>Uniform grid / k-d tree</td><td>Adapts to geometry; each triangle in one leaf; what hardware RT uses</td></tr>
+        <tr><td>Bucketed SAH (12 buckets)</td><td>Median split / full sweep</td><td>Near-optimal trees at a fraction of the build cost</td></tr>
+        <tr><td>Build on CPU, flatten to an array</td><td>Pointer tree / GPU build</td><td>Simple and correct first; flat arrays are GPU-friendly; GPU LBVH is the next step</td></tr>
+        <tr><td>Accumulation + checkerboard</td><td>More samples per frame</td><td>Clean image when still, interactive when moving, at half the cost</td></tr>
+        <tr><td>FSR only on export</td><td>Trace at full export resolution</td><td>6144 px renders at a fraction of the rays</td></tr>
+        <tr><td>Modular WGSL + <code>#include</code> build</td><td>One giant shader string</td><td>WGSL has no includes; modules keep it readable, circular includes detected</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- 5 · SAH -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Feature · acceleration structure</div>
+    <h2>Choosing a split with the surface area heuristic</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1000 380" role="img" aria-label="Triangles in a node are binned into twelve buckets along an axis; the split with the lowest area-weighted cost becomes the two child boxes">
+        <g id="g_node">
+          <text x="40" y="36" class="h">node AABB · 12 buckets along x</text>
+          <rect x="40" y="50" width="480" height="170" class="hi"/>
+          <line x1="80" y1="50" x2="80" y2="220" class="dash fade"/><line x1="120" y1="50" x2="120" y2="220" class="dash fade"/><line x1="160" y1="50" x2="160" y2="220" class="dash fade"/><line x1="200" y1="50" x2="200" y2="220" class="dash fade"/><line x1="240" y1="50" x2="240" y2="220" class="dash fade"/>
+          <line x1="320" y1="50" x2="320" y2="220" class="dash fade"/><line x1="360" y1="50" x2="360" y2="220" class="dash fade"/><line x1="400" y1="50" x2="400" y2="220" class="dash fade"/><line x1="440" y1="50" x2="440" y2="220" class="dash fade"/><line x1="480" y1="50" x2="480" y2="220" class="dash fade"/>
+          <line x1="280" y1="42" x2="280" y2="228" class="acc thick"/>
+          <polygon points="60,110 90,80 110,120"/><polygon points="95,150 130,120 140,170"/><polygon points="150,90 185,70 190,110"/><polygon points="170,160 210,140 205,190"/><polygon points="215,100 250,85 245,125"/><polygon points="120,190 150,175 160,205"/>
+          <polygon points="360,120 395,100 400,140"/><polygon points="420,160 455,150 450,190"/><polygon points="460,80 500,70 495,110"/>
+          <rect x="54" y="66" width="204" height="146" class="dot"/>
+          <rect x="354" y="64" width="152" height="132" class="dot"/>
+          <text x="54" y="238" class="sm">left child · 6 tris</text><text x="354" y="238" class="sm">right child · 3 tris</text>
+          <text x="288" y="62" class="a sm">best split</text>
+        </g>
+        <g id="g_cost">
+          <text x="40" y="278" class="m sm">cost at each of the 11 bucket boundaries</text>
+          <line x1="40" y1="360" x2="520" y2="360" class="fade"/>
+          <polyline points="80,300 120,318 160,330 200,338 240,344 280,352 320,340 360,332 400,322 440,312 480,300"/>
+          <circle cx="80" cy="300" r="3"/><circle cx="120" cy="318" r="3"/><circle cx="160" cy="330" r="3"/><circle cx="200" cy="338" r="3"/><circle cx="240" cy="344" r="3"/>
+          <circle cx="280" cy="352" r="5" class="acc thick"/>
+          <circle cx="320" cy="340" r="3"/><circle cx="360" cy="332" r="3"/><circle cx="400" cy="322" r="3"/><circle cx="440" cy="312" r="3"/><circle cx="480" cy="300" r="3"/>
+          <text x="290" y="374" class="a sm">minimum</text>
+        </g>
+        <g id="g_rule">
+          <rect x="580" y="50" width="390" height="210" rx="6"/>
+          <text x="600" y="80" class="h">Surface area heuristic</text>
+          <text x="600" y="110" class="sm">P(ray hits child) ∝ its surface area, so</text>
+          <text x="600" y="138" class="a">cost = A_L·N_L + A_R·N_R</text>
+          <text x="600" y="166" class="sm">bin triangle centroids into 12 buckets</text>
+          <text x="600" y="186" class="sm">evaluate the 11 boundaries per axis</text>
+          <text x="600" y="206" class="sm">keep the cheapest split</text>
+          <text x="600" y="236" class="m sm">leaf when ≤ 8 tris or max depth</text>
+        </g>
+        <g id="g_why"><text x="580" y="300" class="sm">Why buckets: an exact sweep evaluates every</text><text x="580" y="318" class="sm">triangle position; 12 bins get close to the same</text><text x="580" y="336" class="sm">tree quality at a fraction of the build time.</text></g>
+      </svg>
+      <figcaption>Smaller, tighter children that rays are less likely to hit mean fewer nodes visited per ray. SAH trades build time for traversal speed, which is the right trade for a scene that's built once and traced every frame.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6 · Flatten + traversal -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Feature · GPU traversal</div>
+    <h2>A flat array and an explicit stack (no recursion on GPUs)</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1000 370" role="img" aria-label="A small BVH is flattened into an array of nodes with child indices; the shader pops nodes from a fixed stack, skips boxes the ray misses and tests triangles in leaves">
+        <defs><marker id="wr6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g id="g_tree">
+          <text x="30" y="36" class="h">tree (nested boxes)</text>
+          <rect x="30" y="50" width="300" height="160" class="hi"/><text x="36" y="66" class="sm">0</text>
+          <rect x="44" y="76" width="160" height="120"/><text x="50" y="92" class="sm">1</text>
+          <rect x="56" y="104" width="64" height="80" class="acc"/><text x="62" y="120" class="a sm">2 leaf</text>
+          <rect x="130" y="104" width="64" height="46"/><text x="136" y="120" class="sm">3 leaf</text>
+          <rect x="220" y="76" width="96" height="120"/><text x="226" y="92" class="sm">4 leaf</text>
+          <line x1="20" y1="176" x2="344" y2="160" class="acc thick" marker-end="url(#wr6)"/><text x="20" y="196" class="a sm">ray</text>
+        </g>
+        <g id="g_array">
+          <text x="30" y="250" class="h">flattened · depth-first</text>
+          <rect x="30" y="262" width="300" height="40"/>
+          <line x1="90" y1="262" x2="90" y2="302"/><line x1="150" y1="262" x2="150" y2="302"/><line x1="210" y1="262" x2="210" y2="302"/><line x1="270" y1="262" x2="270" y2="302"/>
+          <text x="40" y="281" class="sm">0</text><text x="40" y="296" class="m sm">L1 R4</text>
+          <text x="100" y="281" class="sm">1</text><text x="100" y="296" class="m sm">L2 R3</text>
+          <text x="160" y="281" class="a sm">2</text><text x="160" y="296" class="m sm">tri 0·4</text>
+          <text x="220" y="281" class="sm">3</text><text x="220" y="296" class="m sm">tri 4·3</text>
+          <text x="280" y="281" class="sm">4</text><text x="280" y="296" class="m sm">tri 7·5</text>
+          <text x="30" y="326" class="m sm">internal: child indices · leaf: triOffset · triCount</text>
+        </g>
+        <g id="g_stack">
+          <text x="400" y="36" class="h">traversal trace</text>
+          <text x="400" y="66" class="m sm">STEP</text><text x="470" y="66" class="m sm">STACK</text><text x="600" y="66" class="m sm">ACTION</text>
+          <line x1="400" y1="74" x2="960" y2="74" class="fade"/>
+          <text x="400" y="98" class="sm">1</text><text x="470" y="98" class="sm">[0]</text><text x="600" y="98" class="sm">pop 0 · box hit → push 4, 1</text>
+          <text x="400" y="126" class="sm">2</text><text x="470" y="126" class="sm">[4, 1]</text><text x="600" y="126" class="sm">pop 1 · box hit → push 3, 2</text>
+          <text x="400" y="154" class="a sm">3</text><text x="470" y="154" class="a sm">[4, 3, 2]</text><text x="600" y="154" class="a sm">pop 2 · leaf → 4 triangle tests → hit t</text>
+          <text x="400" y="182" class="sm">4</text><text x="470" y="182" class="sm">[4, 3]</text><text x="600" y="182" class="sm">pop 3 · box missed → skip 3 tris</text>
+          <text x="400" y="210" class="sm">5</text><text x="470" y="210" class="sm">[4]</text><text x="600" y="210" class="sm">pop 4 · leaf → tests, keep nearest</text>
+          <line x1="400" y1="222" x2="960" y2="222" class="fade"/>
+          <text x="400" y="248" class="sm">slab test with 1/dir precomputed once per ray</text>
+          <text x="400" y="268" class="sm">fixed stack: array&lt;u32, 64&gt; · Möller–Trumbore triangles</text>
+          <rect x="400" y="290" width="560" height="54" rx="6" class="acc dash"/>
+          <text x="416" y="312" class="a sm">NEXT · ordered traversal</text>
+          <text x="416" y="330" class="sm">push the far child first, skip nodes beyond the current hit t</text>
+        </g>
+      </svg>
+      <figcaption>GPUs have no call stack for recursion, so traversal is a loop over an explicit per-thread stack. Depth-first order puts a node's left child right after it, which keeps memory access local.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 7 · Accumulation -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Feature · image quality per ray</div>
+    <h2>Checkerboard + temporal accumulation + FSR</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1000 360" role="img" aria-label="Frames trace alternating halves of the pixels; frames are blended with weight one over n while the camera is still and reset when it moves; exports are upscaled with FSR">
+        <defs><marker id="wr7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g id="g_checker">
+          <text x="30" y="36" class="h">checkerboard</text>
+          <text x="30" y="62" class="m sm">frame N</text>
+          <g><rect x="30" y="70" width="24" height="24" class="acctint"/><rect x="54" y="70" width="24" height="24" class="fade"/><rect x="78" y="70" width="24" height="24" class="acctint"/><rect x="102" y="70" width="24" height="24" class="fade"/><rect x="126" y="70" width="24" height="24" class="acctint"/><rect x="150" y="70" width="24" height="24" class="fade"/>
+             <rect x="30" y="94" width="24" height="24" class="fade"/><rect x="54" y="94" width="24" height="24" class="acctint"/><rect x="78" y="94" width="24" height="24" class="fade"/><rect x="102" y="94" width="24" height="24" class="acctint"/><rect x="126" y="94" width="24" height="24" class="fade"/><rect x="150" y="94" width="24" height="24" class="acctint"/></g>
+          <text x="30" y="150" class="m sm">frame N + 1</text>
+          <g><rect x="30" y="158" width="24" height="24" class="fade"/><rect x="54" y="158" width="24" height="24" class="acctint"/><rect x="78" y="158" width="24" height="24" class="fade"/><rect x="102" y="158" width="24" height="24" class="acctint"/><rect x="126" y="158" width="24" height="24" class="fade"/><rect x="150" y="158" width="24" height="24" class="acctint"/>
+             <rect x="30" y="182" width="24" height="24" class="acctint"/><rect x="54" y="182" width="24" height="24" class="fade"/><rect x="78" y="182" width="24" height="24" class="acctint"/><rect x="102" y="182" width="24" height="24" class="fade"/><rect x="126" y="182" width="24" height="24" class="acctint"/><rect x="150" y="182" width="24" height="24" class="fade"/></g>
+          <text x="30" y="232" class="sm">traced = half the rays</text><text x="30" y="250" class="m sm">the other half interpolated,</text><text x="30" y="266" class="m sm">blended at half weight</text>
+        </g>
+        <g id="g_accum">
+          <text x="270" y="36" class="h">accumulation</text>
+          <polygon points="270,90 400,90 412,78 282,78" class="tint"/><polygon points="270,90 400,90 412,78 282,78"/><polygon points="400,90 412,78 412,106 400,118"/><rect x="270" y="90" width="130" height="28"/><text x="280" y="109" class="sm">history</text>
+          <rect x="270" y="168" width="130" height="28" class="acc"/><text x="280" y="187" class="a sm">this frame</text>
+          <circle cx="490" cy="143" r="22" class="hi"/><text x="480" y="148" class="h">mix</text>
+          <line x1="412" y1="100" x2="470" y2="130" marker-end="url(#wr7)"/><line x1="400" y1="182" x2="470" y2="156" marker-end="url(#wr7)"/>
+          <line x1="512" y1="143" x2="570" y2="143" marker-end="url(#wr7)" class="hi"/><text x="578" y="147" class="sm">output</text>
+          <path d="M490 121 C 490 60, 340 60, 340 76" class="dash" marker-end="url(#wr7)"/><text x="430" y="58" class="m sm">becomes history</text>
+          <text x="270" y="232" class="sm">still: n = min(n + 1, max) · α = 1/n</text>
+          <text x="270" y="250" class="sm">n = max: α = 0 → image frozen, no work</text>
+          <text x="270" y="268" class="a sm">view-projection changed: n = 1 · α = 1</text>
+        </g>
+        <g id="g_fsr">
+          <text x="690" y="36" class="h">export · AMD FSR 1</text>
+          <rect x="690" y="70" width="60" height="30"/><text x="690" y="118" class="m sm">trace low</text>
+          <line x1="756" y1="85" x2="790" y2="85" marker-end="url(#wr7)"/>
+          <rect x="796" y="60" width="160" height="72" class="hi"/><text x="806" y="84" class="sm">EASU</text><text x="806" y="102" class="m sm">edge-adaptive</text><text x="806" y="118" class="m sm">upscale 1–4×</text>
+          <line x1="876" y1="136" x2="876" y2="164" marker-end="url(#wr7)"/>
+          <rect x="796" y="170" width="160" height="50" class="acc"/><text x="806" y="192" class="a sm">RCAS</text><text x="806" y="208" class="m sm">contrast sharpen</text>
+          <text x="690" y="250" class="sm">6144×2780 renders</text><text x="690" y="268" class="m sm">at a fraction of the rays</text>
+        </g>
+      </svg>
+      <figcaption>All three trade samples across space and time instead of shooting more rays per pixel: interactive while moving, converged when still, and high resolution only on export.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 8 · Memory -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Memory &amp; buffer packing</div>
+    <h2>GPU layouts: where the bytes go, and the padding I'd remove</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1000 400" role="img" aria-label="The BVH node and triangle are both 64 bytes in WGSL storage layout, with 24 and 28 bytes of padding respectively">
+        <g id="g_node">
+          <text x="30" y="30" class="h">BVHNode · 64 B</text><text x="170" y="30" class="m sm">10 px = 1 B · dashed = padding</text>
+          <rect x="30" y="42" width="120" height="36"/><text x="38" y="64" class="sm">min vec3 12</text>
+          <rect x="150" y="42" width="40" height="36" class="dash fade"/>
+          <rect x="190" y="42" width="120" height="36"/><text x="198" y="64" class="sm">max vec3 12</text>
+          <rect x="310" y="42" width="40" height="36" class="dash fade"/>
+          <rect x="350" y="42" width="40" height="36"/><rect x="390" y="42" width="40" height="36"/><rect x="430" y="42" width="40" height="36"/><rect x="470" y="42" width="40" height="36"/>
+          <text x="354" y="64" class="sm">L</text><text x="394" y="64" class="sm">R</text><text x="434" y="64" class="sm">off</text><text x="474" y="64" class="sm">cnt</text>
+          <rect x="510" y="42" width="160" height="36" class="dash fade"/><text x="518" y="64" class="m sm">_pad2 vec4 16</text>
+          <text x="690" y="64" class="a sm">24 B padding · 37.5%</text>
+        </g>
+        <g id="g_tri">
+          <text x="30" y="118" class="h">Triangle · 64 B</text>
+          <rect x="30" y="130" width="120" height="36"/><text x="38" y="152" class="sm">v0 12</text><rect x="150" y="130" width="40" height="36" class="dash fade"/>
+          <rect x="190" y="130" width="120" height="36"/><text x="198" y="152" class="sm">v1 12</text><rect x="310" y="130" width="40" height="36" class="dash fade"/>
+          <rect x="350" y="130" width="120" height="36"/><text x="358" y="152" class="sm">v2 12</text><rect x="470" y="130" width="40" height="36" class="dash fade"/>
+          <rect x="510" y="130" width="160" height="36" class="dash fade"/><text x="518" y="152" class="m sm">_pad vec3 16</text>
+          <text x="690" y="152" class="a sm">28 B padding · 43.75%</text>
+          <text x="30" y="190" class="m sm">vec3 aligns to 16 in WGSL storage → each 12-byte vec3 costs 16</text>
+        </g>
+        <g id="g_next">
+          <text x="30" y="240" class="h">what I'd do next</text>
+          <text x="30" y="266" class="m sm">node · 32 B: depth-first order makes left = i + 1, so the w lanes are free</text>
+          <rect x="30" y="276" width="160" height="36" class="acc"/><text x="38" y="298" class="sm">min.xyz + right</text>
+          <rect x="190" y="276" width="160" height="36" class="acc"/><text x="198" y="298" class="sm">max.xyz + count</text>
+          <text x="370" y="298" class="a sm">2× smaller · leaf: right lane = triOffset, count &gt; 0</text>
+          <text x="30" y="340" class="m sm">triangles · 36 B → index buffer + shared vertices, or v0 + two edges for Möller–Trumbore</text>
+          <text x="30" y="362" class="m sm">traversal is memory-bound: fewer bytes per node = more nodes per cache line</text>
+        </g>
+      </svg>
+      <figcaption>Every ray reads many nodes, so node size is the main lever on traversal cost. The current layout is correct and simple. The packed layout is the obvious next step, with measured before and after results.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 9 · Optimizations -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Optimizations &amp; what's next</div>
+    <h2>Speed per ray</h2>
+    <div class="opts">
+      <div class="opt"><b class="v">log n</b><div><h3>SAH BVH</h3><p>Bucketed SAH, max 8 triangles per leaf; roughly O(log n) per ray instead of O(n).</p></div></div>
+      <div class="opt"><b class="v">½</b><div><h3>Checkerboard</h3><p>Half the pixels per frame; interpolated pixels blended at half weight.</p></div></div>
+      <div class="opt"><b class="v">1/n</b><div><h3>Temporal accumulation</h3><p>Converges when still; stops working entirely once the frame limit is reached.</p></div></div>
+      <div class="opt"><b class="v">FSR</b><div><h3>Trace low, upscale smart</h3><p>EASU + RCAS for 1–4× exports instead of tracing every pixel.</p></div></div>
+      <div class="opt"><b class="v">1/d</b><div><h3>Cheap box tests</h3><p>Inverse direction computed once per ray; the slab test becomes multiplies.</p></div></div>
+      <div class="opt"><b class="v">knobs</b><div><h3>Runtime quality</h3><p>Shadow, AO and reflection samples and feature toggles as uniforms, no recompiles.</p></div></div>
+    </div>
+    <p class="note"><b>Next:</b> ordered traversal with hit-distance culling, 32-byte nodes, a GPU LBVH build (Morton codes) with a TLAS/BLAS split for moving objects, and an SVGF-style denoiser so the image is clean even while moving.</p>
+  </div>
+</section>
+
+</main>
+<script src="assets/deck.js"></script>
+</body>
+</html>

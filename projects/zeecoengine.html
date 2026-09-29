@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZeecoEngine Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body>
+<main class="deck">
+
+<section class="slide hero">
+  <img class="hero-img" src="img/zeecoengine.jpg" alt="Collage of scenes and student projects made with ZeecoEngine">
+  <div class="hero-shade"></div>
+  <div class="hero-cap">github.com/NarinderBrar/zecooEngine · engine and course-project collage</div>
+  <div class="wrap">
+    <div class="kicker">Project 7 · Open source / teaching · 2021–22</div>
+    <h1>ZeecoEngine</h1>
+    <p class="lede">A C++ / OpenGL engine built to expose the layers behind a real-time application—and give students a platform for graphics and simulation projects.</p>
+    <div class="pills"><span class="pill">C++</span><span class="pill">OpenGL 3.3</span><span class="pill">GLSL</span><span class="pill">Assimp</span><span class="pill">Bullet</span><span class="pill">Dear ImGui</span></div>
+    <div class="stats">
+      <div class="stat"><b>98/103</b><span>commits authored by Narinder</span></div>
+      <div class="stat"><b>3</b><span>dynamic light types</span></div>
+      <div class="stat"><b>8</b><span>example project folders</span></div>
+      <div class="stat"><b>2021–22</b><span>learning-engine era</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">What I built</div>
+    <h2>A small engine from frame loop to physics</h2>
+    <div class="feats">
+      <div class="feat"><h3><span class="n">01</span>Rendering core</h3><p>GLFW context, GLAD loading, shader compiler, VAO/VBO/EBO wrappers and draw paths.</p></div>
+      <div class="feat"><h3><span class="n">02</span>Geometry</h3><p>Cube, sphere, cone, cylinder, plane, prism, pyramid, tube, lines and custom meshes.</p></div>
+      <div class="feat"><h3><span class="n">03</span>Scene transforms</h3><p>Local/world translate, rotate and scale; parent transforms; look-at and move-towards.</p></div>
+      <div class="feat"><h3><span class="n">04</span>Lighting + materials</h3><p>Directional, point and spot lights with camera and texture state connected through materials.</p></div>
+      <div class="feat"><h3><span class="n">05</span>Asset import</h3><p>Recursive Assimp scene traversal, indexed meshes, normals, UVs, tangents and texture reuse.</p></div>
+      <div class="feat"><h3><span class="n">06</span>Physics</h3><p>Static, dynamic and kinematic bodies, constraints, manifolds, ray tests and debug drawing.</p></div>
+      <div class="feat"><h3><span class="n">07</span>Debug UI</h3><p>Dear ImGui integration plus grid, ray and line helpers for inspecting scenes.</p></div>
+      <div class="feat"><h3><span class="n">08</span>Experiments</h3><p>Robot arm, rolling ball, sine wave, model-loading and ZeroMQ client/server work.</p></div>
+      <div class="feat"><h3><span class="n">09</span>Teaching platform</h3><p>Students extended the engine with course scenes; contributions remain explicitly credited.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Architecture</div>
+    <h2>A frame makes every engine layer visible</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1000 380" role="img" aria-label="GLFW and input feed the game loop, which steps Bullet and updates a scene; models, materials, lights and cameras then produce OpenGL indexed draws, followed by ImGui">
+        <defs><marker id="ze-a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g>
+          <rect x="30" y="40" width="175" height="62" rx="5"/><text x="48" y="66" class="h">GLFW Window</text><text x="48" y="85" class="sm">events · context</text>
+          <rect x="260" y="40" width="175" height="62" rx="5"/><text x="278" y="66" class="h">Input</text><text x="278" y="85" class="sm">keyboard · mouse</text>
+          <rect x="490" y="40" width="175" height="62" rx="5" class="acc thick"/><text x="508" y="66" class="h">Game loop</text><text x="508" y="85" class="a sm">update → render</text>
+          <rect x="720" y="40" width="220" height="62" rx="5"/><text x="738" y="66" class="h">Active Scene</text><text x="738" y="85" class="sm">compose objects</text>
+          <line x1="205" y1="71" x2="256" y2="71" marker-end="url(#ze-a3)"/><line x1="435" y1="71" x2="486" y2="71" marker-end="url(#ze-a3)"/><line x1="665" y1="71" x2="716" y2="71" marker-end="url(#ze-a3)"/>
+        </g>
+        <g>
+          <rect x="90" y="176" width="190" height="68" rx="5"/><text x="108" y="202" class="h">Bullet world</text><text x="108" y="223" class="sm">bodies · constraints</text>
+          <rect x="355" y="176" width="190" height="68" rx="5"/><text x="373" y="202" class="h">Transform</text><text x="373" y="223" class="sm">parent × local</text>
+          <rect x="620" y="176" width="280" height="68" rx="5"/><text x="638" y="202" class="h">Camera · lights · material</text><text x="638" y="223" class="sm">view/proj + shader uniforms</text>
+          <line x1="577" y1="102" x2="205" y2="172" marker-end="url(#ze-a3)" class="dash"/><line x1="830" y1="102" x2="760" y2="172" marker-end="url(#ze-a3)"/><line x1="280" y1="210" x2="351" y2="210" marker-end="url(#ze-a3)"/>
+        </g>
+        <g>
+          <polygon points="160,315 310,315 326,299 176,299" class="tint"/><rect x="160" y="315" width="150" height="34"/><polygon points="310,315 326,299 326,333 310,349"/><text x="178" y="337" class="sm">VAO · VBO · EBO</text>
+          <rect x="405" y="295" width="190" height="64" rx="5" class="acc thick"/><text x="423" y="321" class="h">glDrawElements</text><text x="423" y="341" class="a sm">indexed triangles</text>
+          <rect x="690" y="295" width="190" height="64" rx="5"/><text x="708" y="321" class="h">ImGui overlay</text><text x="708" y="341" class="sm">debug controls</text>
+          <line x1="450" y1="244" x2="450" y2="291" marker-end="url(#ze-a3)"/><line x1="760" y1="244" x2="560" y2="291" marker-end="url(#ze-a3)"/><line x1="326" y1="327" x2="401" y2="327" marker-end="url(#ze-a3)"/><line x1="595" y1="327" x2="686" y2="327" marker-end="url(#ze-a3)"/>
+        </g>
+      </svg>
+      <figcaption>The architecture is intentionally direct: it was built to teach what established engines normally hide.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Architecture decisions</div>
+    <h2>Learning value first, production abstraction second</h2>
+    <div class="tbl"><table class="dec"><thead><tr><th>Decision</th><th>Alternative</th><th>Why / trade-off</th></tr></thead><tbody>
+      <tr><td>Build on raw OpenGL</td><td>Unity / Unreal</td><td>Expose buffers, shaders, matrices and draw calls; much more infrastructure to maintain</td></tr>
+      <tr><td>Scene-specific C++ classes</td><td>Data-driven ECS</td><td>Easy for a student to trace; hard to scale composition and lifetime</td></tr>
+      <tr><td>Assimp import</td><td>Write format parsers</td><td>One common pipeline for many formats and material textures</td></tr>
+      <tr><td>Bullet integration</td><td>Custom physics</td><td>Focus on render/physics synchronization and gameplay, not solver mathematics</td></tr>
+      <tr><td>Interleaved vertices + EBO</td><td>Duplicated triangle vertices</td><td>One coherent vertex record and reuse through indices</td></tr>
+      <tr><td>Vendored Windows project</td><td>Portable package manager</td><td>Predictable course machines then; difficult maintenance now</td></tr>
+    </tbody></table></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Feature · model import</div>
+    <h2>From an asset file to indexed OpenGL draws</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1000 350" role="img" aria-label="Assimp reads an asset into a scene tree, recursive node processing creates meshes, deduplicates material textures by path, uploads vertex and index buffers, and draws each mesh">
+        <defs><marker id="ze-a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <rect x="30" y="110" width="145" height="70" rx="5"/><text x="48" y="138" class="h">asset file</text><text x="48" y="158" class="sm">OBJ · FBX · …</text>
+        <rect x="220" y="110" width="145" height="70" rx="5" class="acc thick"/><text x="238" y="138" class="h">Assimp</text><text x="238" y="158" class="a sm">scene tree</text>
+        <rect x="410" y="110" width="160" height="70" rx="5"/><text x="428" y="138" class="h">processNode</text><text x="428" y="158" class="sm">recursive walk</text>
+        <rect x="615" y="70" width="160" height="70" rx="5"/><text x="633" y="98" class="h">processMesh</text><text x="633" y="118" class="sm">verts · indices</text>
+        <rect x="615" y="190" width="160" height="70" rx="5"/><text x="633" y="218" class="h">textures</text><text x="633" y="238" class="sm">reuse by path</text>
+        <polygon points="825,120 935,120 950,105 840,105" class="tint"/><rect x="825" y="120" width="110" height="42"/><polygon points="935,120 950,105 950,147 935,162"/><text x="842" y="146" class="sm">VBO + EBO</text>
+        <rect x="825" y="215" width="125" height="55" rx="5"/><text x="843" y="240" class="h">draw mesh</text><text x="843" y="257" class="sm">indexed</text>
+        <line x1="175" y1="145" x2="216" y2="145" marker-end="url(#ze-a5)"/><line x1="365" y1="145" x2="406" y2="145" marker-end="url(#ze-a5)"/>
+        <line x1="570" y1="135" x2="611" y2="110" marker-end="url(#ze-a5)"/><line x1="570" y1="155" x2="611" y2="215" marker-end="url(#ze-a5)"/>
+        <line x1="775" y1="105" x2="821" y2="132" marker-end="url(#ze-a5)"/><line x1="775" y1="225" x2="821" y2="235" marker-end="url(#ze-a5)"/><line x1="880" y1="162" x2="880" y2="211" marker-end="url(#ze-a5)"/>
+      </svg>
+      <figcaption>Texture paths are cached per imported model, so meshes sharing a material do not decode and allocate the same image again.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Feature · physics bridge</div>
+    <h2>Bullet simulates; the renderer consumes transforms</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1000 350" role="img" aria-label="Render models create Bullet collision shapes and bodies; every frame the dynamics world steps, motion states return matrices, and render transforms update before drawing">
+        <defs><marker id="ze-a6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <rect x="55" y="55" width="185" height="64" rx="5"/><text x="73" y="81" class="h">Model transform</text><text x="73" y="101" class="sm">pose · local scale</text>
+        <rect x="320" y="55" width="185" height="64" rx="5"/><text x="338" y="81" class="h">collision shape</text><text x="338" y="101" class="sm">box / sphere / …</text>
+        <rect x="585" y="55" width="185" height="64" rx="5"/><text x="603" y="81" class="h">rigid body</text><text x="603" y="101" class="sm">mass · inertia</text>
+        <line x1="240" y1="87" x2="316" y2="87" marker-end="url(#ze-a6)"/><line x1="505" y1="87" x2="581" y2="87" marker-end="url(#ze-a6)"/>
+        <rect x="320" y="180" width="450" height="72" rx="5" class="acc thick"/><text x="338" y="208" class="h">btDiscreteDynamicsWorld</text><text x="338" y="230" class="a sm">DBVT broad phase → manifolds → sequential impulse solver</text>
+        <line x1="677" y1="119" x2="650" y2="176" marker-end="url(#ze-a6)"/>
+        <rect x="55" y="290" width="185" height="52" rx="5"/><text x="73" y="316" class="h">glDrawElements</text><text x="73" y="334" class="sm">render pose</text>
+        <rect x="830" y="180" width="140" height="72" rx="5"/><text x="848" y="208" class="h">collision test</text><text x="848" y="230" class="sm">contact impulse</text>
+        <path d="M420 252 L420 316 L244 316" marker-end="url(#ze-a6)" class="hi"/><text x="436" y="282" class="sm">motion state matrix</text>
+        <line x1="770" y1="216" x2="826" y2="216" marker-end="url(#ze-a6)" class="dash"/>
+      </svg>
+      <figcaption>Static bodies start from the render transform; dynamic bodies flow back from Bullet to the render transform each frame.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">GPU vertex record</div>
+    <h2>An interleaved mesh, described once by the VAO</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1000 310" role="img" aria-label="The imported Vertex record contains position, normal, UV, tangent, bitangent, four bone IDs and four weights; an index buffer reuses these records">
+        <rect x="35" y="95" width="145" height="80" class="acctint"/><text x="52" y="122" class="h">position</text><text x="52" y="146" class="sm">vec3 · attr 0</text>
+        <rect x="180" y="95" width="145" height="80"/><text x="197" y="122" class="h">normal</text><text x="197" y="146" class="sm">vec3 · attr 1</text>
+        <rect x="325" y="95" width="120" height="80"/><text x="342" y="122" class="h">UV</text><text x="342" y="146" class="sm">vec2 · attr 2</text>
+        <rect x="445" y="95" width="145" height="80"/><text x="462" y="122" class="h">tangent</text><text x="462" y="146" class="sm">vec3 · attr 3</text>
+        <rect x="590" y="95" width="145" height="80"/><text x="607" y="122" class="h">bitangent</text><text x="607" y="146" class="sm">vec3 · attr 4</text>
+        <rect x="735" y="95" width="115" height="80" class="dash"/><text x="752" y="122" class="h">bone IDs</text><text x="752" y="146" class="sm">ivec4 · 5</text>
+        <rect x="850" y="95" width="115" height="80" class="dash"/><text x="867" y="122" class="h">weights</text><text x="867" y="146" class="sm">vec4 · 6</text>
+        <polygon points="210,240 385,240 400,225 225,225" class="tint"/><rect x="210" y="240" width="175" height="35"/><polygon points="385,240 400,225 400,260 385,275"/><text x="230" y="263" class="sm">VBO · Vertex records</text>
+        <polygon points="600,240 775,240 790,225 615,225" class="tint"/><rect x="600" y="240" width="175" height="35"/><polygon points="775,240 790,225 790,260 775,275"/><text x="620" y="263" class="sm">EBO · uint indices</text>
+        <text x="35" y="56" class="m sm">Exact fields from MeshExternal.h; byte size is intentionally not claimed because GLM alignment is build-dependent.</text>
+      </svg>
+      <figcaption>The bone fields are present in the record, but skeletal animation is not claimed as a completed engine feature.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Outcome and limits</div>
+    <h2>A credible foundation—and an honest legacy project</h2>
+    <div class="opts">
+      <div class="opt"><b class="v">98/103</b><div><h3>Narinder-led core</h3><p>Git history establishes ownership while retaining contributor credit.</p></div></div>
+      <div class="opt"><b class="v">EBO</b><div><h3>Indexed geometry</h3><p>Reuse shared vertices and keep the GPU layout explicit.</p></div></div>
+      <div class="opt"><b class="v">reuse</b><div><h3>Texture-path cache</h3><p>Avoid duplicate decode and allocation inside an imported model.</p></div></div>
+      <div class="opt"><b class="v">DBVT</b><div><h3>Physics broad phase</h3><p>Reject distant object pairs before contact generation.</p></div></div>
+      <div class="opt"><b class="v">RAII</b><div><h3>Modernize ownership</h3><p>Raw pointers and manual teardown are the first refactor target.</p></div></div>
+      <div class="opt"><b class="v">cache</b><div><h3>Uniform locations</h3><p>Stop calling glGetUniformLocation from every setter and draw.</p></div></div>
+    </div>
+    <p class="note">The collage includes student projects. No measured speedup or production-scale claim is attached to ZeecoEngine.</p>
+  </div>
+</section>
+
+</main>
+<script src="assets/deck.js"></script>
+</body>
+</html>

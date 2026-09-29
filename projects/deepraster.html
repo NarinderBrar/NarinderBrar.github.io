@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DeepRaster Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body>
+<main class="deck">
+
+<!-- 1 · Title -->
+<section class="slide hero">
+  <img class="hero-img" src="img/deepraster.jpg" alt="deepraster.com home page">
+  <div class="hero-shade"></div>
+  <div class="hero-cap">deepraster.com</div>
+  <div class="wrap">
+      <div class="kicker">Project 4 · Product · teaching</div>
+      <h1>DeepRaster</h1>
+      <p class="lede">An interactive computer-graphics learning platform. Instead of a demo that shows the final image, each lesson reveals <b>how</b> the image is made: inputs, intermediate steps and decisions.</p>
+      <div class="pills"><span class="pill">TypeScript</span><span class="pill">Astro 7 + MDX</span><span class="pill">WebGPU / WebGL2</span><span class="pill">SVG runtime</span><span class="pill">Cloudflare</span><span class="pill">Vitest</span></div>
+      <div class="stats">
+        <div class="stat"><b>190</b><span>articles</span></div>
+        <div class="stat"><b>7</b><span>workspace packages</span></div>
+        <div class="stat"><b>0</b><span>JS on plain articles</span></div>
+        <div class="stat"><b>CI</b><span>size budgets</span></div>
+      </div>
+  </div>
+</section>
+
+<!-- 2 · Features -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">What I built</div>
+    <h2>Features</h2>
+    <div class="feats">
+      <div class="feat"><h3><span class="n">01</span>Interactive lessons</h3><p>Each article pairs a 2D lab with a 3D lesson you can step through, inspect and change.</p></div>
+      <div class="feat"><h3><span class="n">02</span>Own graphics engine</h3><p>WebGPU and WebGL2 device backends behind one renderer, with a shared device pool.</p></div>
+      <div class="feat"><h3><span class="n">03</span>SVG diagram runtime</h3><p>Turns static SVG diagrams into animated, validated, interactive explanations.</p></div>
+      <div class="feat"><h3><span class="n">04</span>Semantic timeline</h3><p>Play, pause, seek and step over meaningful states, not just animation frames.</p></div>
+      <div class="feat"><h3><span class="n">05</span>Learning runtime</h3><p>Deterministic lesson state; coordinated result, observer and inspector views.</p></div>
+      <div class="feat"><h3><span class="n">06</span>Astro site</h3><p>MDX content with Zod-validated metadata, a prerendered search index, SEO tests.</p></div>
+      <div class="feat"><h3><span class="n">07</span>Performance budgets</h3><p>CI fails the build if pages, search index or scripts exceed their limits.</p></div>
+      <div class="feat"><h3><span class="n">08</span>Content pipeline</h3><p>Written authoring pipelines, asset validation, and a local article review server.</p></div>
+      <div class="feat"><h3><span class="n">09</span>Production ops</h3><p>Cloudflare Workers static assets, LaunchDarkly observability with privacy-hardened replay.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · Architecture -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Architecture</div>
+    <h2>A layered monorepo: dependencies only point down</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1000 400" role="img" aria-label="The website depends on lessons and learning; lessons compose learning, diagram and engine; all runtimes depend on core, and nothing points upward">
+        <defs><marker id="dr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g id="g_nodes">
+          <rect x="400" y="30" width="200" height="46" rx="4" class="hi"/><text x="414" y="52" class="h">website</text><text x="414" y="68" class="m sm">Astro · MDX · delivery</text>
+          <rect x="400" y="120" width="200" height="46" rx="4" class="acc thick"/><text x="414" y="142" class="h">lessons</text><text x="414" y="158" class="a sm">composition layer</text>
+          <rect x="140" y="210" width="190" height="46" rx="4"/><text x="154" y="232" class="h">learning</text><text x="154" y="248" class="m sm">lesson contracts</text>
+          <rect x="405" y="210" width="190" height="46" rx="4"/><text x="419" y="232" class="h">diagram</text><text x="419" y="248" class="m sm">SVG runtime</text>
+          <rect x="670" y="210" width="190" height="46" rx="4"/><text x="684" y="232" class="h">engine</text><text x="684" y="248" class="m sm">WebGPU · WebGL2</text>
+          <rect x="270" y="290" width="190" height="42" rx="4"/><text x="284" y="316" class="h">timeline</text>
+          <rect x="400" y="350" width="200" height="40" rx="4" class="hi"/><text x="414" y="375" class="h">core</text><text x="470" y="375" class="m sm">ids · math · types</text>
+        </g>
+        <g id="g_edges">
+          <line x1="500" y1="76" x2="500" y2="116" marker-end="url(#dr3)"/>
+          <line x1="420" y1="76" x2="260" y2="206" marker-end="url(#dr3)" class="dash"/>
+          <line x1="460" y1="166" x2="290" y2="206" marker-end="url(#dr3)"/>
+          <line x1="500" y1="166" x2="500" y2="206" marker-end="url(#dr3)"/>
+          <line x1="540" y1="166" x2="720" y2="206" marker-end="url(#dr3)"/>
+          <line x1="235" y1="256" x2="320" y2="286" marker-end="url(#dr3)"/>
+          <line x1="470" y1="256" x2="410" y2="286" marker-end="url(#dr3)"/>
+          <line x1="365" y1="332" x2="440" y2="346" marker-end="url(#dr3)"/>
+          <polyline points="170,256 170,370 396,370" marker-end="url(#dr3)" class="fade"/>
+          <line x1="560" y1="256" x2="560" y2="346" marker-end="url(#dr3)" class="fade"/>
+          <line x1="765" y1="256" x2="604" y2="366" marker-end="url(#dr3)"/>
+        </g>
+        <g id="g_rules">
+          <text x="690" y="44" class="sm">engine: no lessons, no Astro</text>
+          <text x="690" y="62" class="sm">diagram: no WebGPU, no Astro</text>
+          <text x="690" y="80" class="sm">timeline: no SVG, no WebGPU</text>
+          <text x="690" y="98" class="m sm">no cycles · no importing another</text>
+          <text x="690" y="114" class="m sm">package's src/</text>
+          <text x="20" y="140" class="m sm">framework at the edge:</text>
+          <text x="20" y="156" class="m sm">reusable packages never</text>
+          <text x="20" y="172" class="m sm">import Astro or site CSS</text>
+        </g>
+      </svg>
+      <figcaption>The engines are reusable products, not website internals. A page with one SVG lesson must not load the WebGPU engine or unrelated lessons ("load only what is used").</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 4 · Decisions -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Architecture decisions</div>
+    <h2>What I chose, and what I didn't</h2>
+    <div class="tbl"><table class="dec">
+      <thead><tr><th>Decision</th><th>Rejected</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Own engine</td><td>Three.js / Babylon</td><td>The product teaches what engines hide: buffers, passes and state must be inspectable</td></tr>
+        <tr><td>Static-first Astro, islands</td><td>A single-page app</td><td>Articles ship zero JS; demos hydrate on their own; strong Core Web Vitals</td></tr>
+        <tr><td>Semantic state, separate from visuals</td><td>Animation-driven lessons</td><td>Seek, step and replay are exact; views can't corrupt learning state</td></tr>
+        <tr><td>Deterministic lessons (inputs + seed + step)</td><td>Free-running simulations</td><td>Reproducible explanations, testable without a browser</td></tr>
+        <tr><td>Size budgets in CI</td><td>Checking performance by eye</td><td>Regressions fail the build before users see them</td></tr>
+        <tr><td>WebGPU with WebGL2 backend</td><td>WebGPU only</td><td>Modern path where available, still works everywhere</td></tr>
+        <tr><td>Spec with MUST/SHOULD + ADRs</td><td>Informal conventions</td><td>Contributors and AI agents follow the same boundaries</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- 5 · Semantic timeline -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Feature · learning runtime</div>
+    <h2>Meaning first, animation second</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1000 360" role="img" aria-label="One clock drives a semantic timeline of meaningful steps and a visual timeline that interpolates between them; deterministic lesson state feeds result, observer and inspector views, which only observe">
+        <defs><marker id="dr5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g id="g_clock"><circle cx="50" cy="120" r="18" class="hi"/><line x1="50" y1="120" x2="50" y2="108" class="hi"/><line x1="50" y1="120" x2="59" y2="124" class="hi"/><text x="22" y="160" class="m sm">one clock</text></g>
+        <g id="g_semantic">
+          <text x="110" y="60" class="h">semantic timeline</text>
+          <line x1="110" y1="90" x2="540" y2="90" class="hi"/>
+          <circle cx="130" cy="90" r="6" class="acc thick"/><circle cx="240" cy="90" r="6" class="acc thick"/><circle cx="350" cy="90" r="6" class="acc thick"/><circle cx="460" cy="90" r="6" class="acc thick"/>
+          <text x="110" y="116" class="sm">ray-built</text><text x="214" y="116" class="sm">box-tested</text><text x="316" y="116" class="a sm">intersection-</text><text x="316" y="130" class="a sm">tested</text><text x="440" y="116" class="sm">shaded</text>
+          <text x="110" y="150" class="m sm">owns state transitions · explanations · checkpoints</text>
+        </g>
+        <g id="g_visual">
+          <text x="110" y="196" class="h">visual timeline</text>
+          <line x1="110" y1="226" x2="540" y2="226" class="fade"/>
+          <path d="M130 226 C 170 196, 200 196, 240 226" class="dash"/><path d="M240 226 C 280 196, 310 196, 350 226" class="dash"/><path d="M350 226 C 390 196, 420 196, 460 226" class="dash"/>
+          <text x="110" y="256" class="m sm">interpolates between states · never mutates them</text>
+          <line x1="68" y1="120" x2="104" y2="96" marker-end="url(#dr5)"/><line x1="68" y1="124" x2="104" y2="220" marker-end="url(#dr5)"/>
+        </g>
+        <g id="g_state">
+          <rect x="600" y="60" width="160" height="80" rx="6" class="acc thick"/>
+          <text x="614" y="84" class="h">lesson state</text><text x="614" y="104" class="a sm">f(inputs, seed,</text><text x="614" y="120" class="a sm">step index)</text>
+          <text x="600" y="160" class="m sm">no DOM · no GPU handles</text>
+          <line x1="544" y1="90" x2="596" y2="96" marker-end="url(#dr5)"/>
+        </g>
+        <g id="g_views">
+          <rect x="820" y="40" width="160" height="44" rx="4"/><text x="834" y="60" class="h">result</text><text x="834" y="76" class="m sm">the output image</text>
+          <rect x="820" y="104" width="160" height="44" rx="4"/><text x="834" y="124" class="h">observer</text><text x="834" y="140" class="m sm">independent camera</text>
+          <rect x="820" y="168" width="160" height="44" rx="4"/><text x="834" y="188" class="h">inspector</text><text x="834" y="204" class="m sm">selected details</text>
+          <line x1="760" y1="90" x2="816" y2="62" marker-end="url(#dr5)"/><line x1="760" y1="100" x2="816" y2="126" marker-end="url(#dr5)"/><line x1="760" y1="110" x2="816" y2="188" marker-end="url(#dr5)"/>
+          <text x="770" y="250" class="sm">views observe state and own their</text><text x="770" y="266" class="sm">resources (SVG nodes, GPU buffers)</text>
+          <text x="770" y="290" class="m sm">moving the observer camera never</text><text x="770" y="306" class="m sm">changes the result or the algorithm</text>
+        </g>
+      </svg>
+      <figcaption>A step like <code>intersection-tested</code> is data; an opacity tween is only a view of it. Seeking reconstructs the semantic state first, then views evaluate their visuals for that time. That's the same "state vs view" split as Redux, or RobotLens's snapshots.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6 · Loading -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Feature · page performance</div>
+    <h2>Zero JS by default, demos load only when seen</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1000 360" role="img" aria-label="A plain article ships only HTML and CSS; a demo article ships HTML plus one island bundle that is fetched and started only when the demo scrolls into view">
+        <defs><marker id="dr6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g id="g_plain">
+          <text x="40" y="36" class="h">plain article</text>
+          <rect x="40" y="50" width="200" height="280" rx="4"/>
+          <line x1="60" y1="80" x2="210" y2="80"/><line x1="60" y1="100" x2="220" y2="100" class="fade"/><line x1="60" y1="116" x2="200" y2="116" class="fade"/><line x1="60" y1="132" x2="215" y2="132" class="fade"/>
+          <rect x="60" y="150" width="160" height="70" class="dash"/><text x="72" y="190" class="m sm">static SVG</text>
+          <line x1="60" y1="240" x2="215" y2="240" class="fade"/><line x1="60" y1="256" x2="200" y2="256" class="fade"/>
+          <text x="40" y="350" class="a sm">HTML + CSS · 0 JS bundles</text>
+        </g>
+        <g id="g_demo">
+          <text x="340" y="36" class="h">demo article</text>
+          <rect x="340" y="50" width="200" height="280" rx="4"/>
+          <rect x="330" y="44" width="220" height="130" rx="2" class="acc dash"/><text x="556" y="60" class="a sm">viewport</text>
+          <line x1="360" y1="80" x2="510" y2="80"/><line x1="360" y1="100" x2="520" y2="100" class="fade"/><line x1="360" y1="116" x2="500" y2="116" class="fade"/><line x1="360" y1="132" x2="515" y2="132" class="fade"/>
+          <rect x="360" y="210" width="160" height="90" class="hi"/><text x="372" y="244" class="sm">island</text><text x="372" y="262" class="m sm">not started yet</text>
+          <line x1="440" y1="178" x2="440" y2="204" class="dot" marker-end="url(#dr6)"/><text x="450" y="196" class="m sm">scroll</text>
+        </g>
+        <g id="g_flow">
+          <rect x="620" y="70" width="340" height="44" rx="4"/><text x="634" y="97" class="sm">① IntersectionObserver: demo visible?</text>
+          <rect x="620" y="140" width="340" height="44" rx="4"/><text x="634" y="167" class="sm">② fetch this lesson's bundle only</text>
+          <rect x="620" y="210" width="340" height="44" rx="4" class="acc"/><text x="634" y="237" class="a sm">③ pick device: WebGPU → WebGL2</text>
+          <rect x="620" y="280" width="340" height="44" rx="4" class="dash"/><text x="634" y="307" class="sm">④ start · cleanup via cancel()</text>
+          <line x1="790" y1="114" x2="790" y2="136" marker-end="url(#dr6)"/><line x1="790" y1="184" x2="790" y2="206" marker-end="url(#dr6)"/><line x1="790" y1="254" x2="790" y2="276" marker-end="url(#dr6)"/>
+          <line x1="524" y1="255" x2="614" y2="92" class="dash" marker-end="url(#dr6)"/>
+        </g>
+      </svg>
+      <figcaption>Astro renders everything at build time and hydrates only islands. <code>startWhenVisible()</code> wraps an <code>IntersectionObserver</code> and returns a cancel function, so every observer, timer and GPU resource has a deterministic cleanup path.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 7 · Budgets -->
+<section class="slide">
+  <div class="wrap grid2">
+    <div>
+      <div class="kicker">Byte budgets, enforced in CI</div>
+      <h2>Performance you can't accidentally lose</h2>
+      <p class="sub"><code>scripts/scale-check.mjs</code> inspects the production build and <b>fails</b> it when a limit is crossed. Content can grow to hundreds of articles without the site getting slower.</p>
+      <ul class="pts">
+        <li><b>Search:</b> a prerendered JSON index, cached for an hour, instead of search text embedded in every page.</li>
+        <li><b>Topics page:</b> at most 30 rows rendered.</li>
+        <li><b>Content:</b> every article's metadata is validated by a Zod schema at build time.</li>
+        <li><b>Delivery:</b> static assets on Cloudflare's edge; no server to scale.</li>
+      </ul>
+    </div>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 520 330" role="img" aria-label="Build budgets: topics page 120 kilobytes, article page 80 kilobytes, search index 2 megabytes, and zero JavaScript bundles on plain articles">
+        <g id="g_budgets">
+          <text x="10" y="26" class="m sm">LIMIT · BUILD FAILS ABOVE</text>
+          <text x="10" y="66" class="sm">topics page HTML</text><rect x="10" y="74" width="300" height="24"/><line x1="310" y1="68" x2="310" y2="104" class="acc thick"/><text x="322" y="91" class="a">≤ 120 KB</text>
+          <text x="10" y="134" class="sm">article page HTML</text><rect x="10" y="142" width="200" height="24"/><line x1="210" y1="136" x2="210" y2="172" class="acc thick"/><text x="222" y="159" class="a">≤ 80 KB</text>
+          <text x="10" y="202" class="sm">search index JSON</text><rect x="10" y="210" width="380" height="24" class="dash"/><line x1="390" y1="204" x2="390" y2="240" class="acc thick"/><text x="400" y="227" class="a">≤ 2 MB</text>
+          <text x="10" y="270" class="sm">JS on a plain article</text><line x1="10" y1="272" x2="10" y2="302" class="acc thick"/><text x="22" y="292" class="a">0 bundles</text>
+          <text x="10" y="324" class="m sm">topics and article bars share a scale</text>
+        </g>
+      </svg>
+    </figure>
+  </div>
+</section>
+
+<!-- 8 · Results -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Engineering results</div>
+    <h2>What this project proves</h2>
+    <div class="opts">
+      <div class="opt"><b class="v">0 JS</b><div><h3>Static-first delivery</h3><p>Plain articles ship no bundles; demos load per lesson, only when visible.</p></div></div>
+      <div class="opt"><b class="v">CI</b><div><h3>Budgets as tests</h3><p>Page, index and script sizes fail the build instead of degrading silently.</p></div></div>
+      <div class="opt"><b class="v">2×</b><div><h3>Dual GPU backend</h3><p>WebGPU and WebGL2 devices behind one renderer, with a device pool.</p></div></div>
+      <div class="opt"><b class="v">layers</b><div><h3>Reusable packages</h3><p>7 packages, one-way dependencies, the framework at the edge.</p></div></div>
+      <div class="opt"><b class="v">f(x)</b><div><h3>Deterministic lessons</h3><p>State from inputs + seed + step; views only observe; seek is exact.</p></div></div>
+      <div class="opt"><b class="v">190</b><div><h3>Content at scale</h3><p>Zod-validated MDX, authoring pipelines, asset validation, review tooling.</p></div></div>
+    </div>
+    <p class="note">It's also where I practise explaining hard ideas simply. That's the same skill as mentoring engineers, and the reason my interview diagrams look the way they do.</p>
+  </div>
+</section>
+
+</main>
+<script src="assets/deck.js"></script>
+</body>
+</html>

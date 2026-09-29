@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RobotLens Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body>
+<main class="deck">
+
+<!-- 1 · Title -->
+<section class="slide hero">
+  <img class="hero-img" src="img/robotlens.jpg" data-fallback="img/robotlens-site.jpg" alt="RobotLens">
+  <div class="hero-shade"></div>
+  <div class="hero-cap">robotlens.dev · github.com/NarinderBrar/RobotLens</div>
+  <div class="wrap">
+      <div class="kicker">Project 1 · Open source · 2026 →</div>
+      <h1>RobotLens</h1>
+      <p class="lede">A native ROS 2 engineering workspace. Topology, robot models, TF, diagnostics, logs, 3D visualization, MoveIt, Nav2 and Gazebo in one app, built on one shared graph of the robot system.</p>
+      <div class="pills"><span class="pill">C++20</span><span class="pill">Vulkan</span><span class="pill">Dear ImGui</span><span class="pill">ROS 2 Jazzy</span><span class="pill">GTest</span><span class="pill">MCP</span></div>
+      <div class="stats">
+        <div class="stat"><b>~200k</b><span>lines of C++</span></div>
+        <div class="stat"><b>57</b><span>decision records</span></div>
+        <div class="stat"><b>359</b><span>test files</span></div>
+        <div class="stat"><b>25+</b><span>display types</span></div>
+      </div>
+  </div>
+</section>
+
+<!-- 2 · Features -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">What I built</div>
+    <h2>Features</h2>
+    <p class="sub">Everything in one dockable workspace, sharing one selection model, one timeline and one message pipeline.</p>
+    <div class="feats">
+      <div class="feat"><h3><span class="n">01</span>Robot knowledge graph</h3><p>Nodes, topics, services, TF frames, joints, diagnostics and logs as entities with stable IDs; immutable per-frame snapshots.</p></div>
+      <div class="feat"><h3><span class="n">02</span>Live ROS 2 discovery</h3><p>Nodes, endpoints with QoS, services, actions, parameters and TF at ~1 Hz; failure-safe (last good state survives).</p></div>
+      <div class="feat"><h3><span class="n">03</span>Vulkan viewport</h3><p>PBR, shadow maps, IBL, SSAO, ray-query contact shadows, MSAA 1–8×, GPU picking, gizmos.</p></div>
+      <div class="feat"><h3><span class="n">04</span>GPU-driven rendering</h3><p>Compute frustum culling with indirect draws, Hi-Z occlusion, packed vertices, front-to-back sorting.</p></div>
+      <div class="feat"><h3><span class="n">05</span>25+ display types</h3><p>Point clouds (chunked, partially resident), laser scans, maps, markers, paths, cameras, virtual LIDAR.</p></div>
+      <div class="feat"><h3><span class="n">06</span>Robot models &amp; sim</h3><p>URDF/SDF parse, render and edit; MoveIt 2, Nav2 and Gazebo workflows with approval steps.</p></div>
+      <div class="feat"><h3><span class="n">07</span>Health &amp; evidence</h3><p>12 health rules with evidence citations; a deterministic investigation assistant with 4 LLM adapters.</p></div>
+      <div class="feat"><h3><span class="n">08</span>MCP server</h3><p>30+ read-only tools for AI agents, an evidence envelope on every reply, propose → approve → execute.</p></div>
+      <div class="feat plan"><h3><span class="n">09</span>Investigation agent</h3><p>A tool-calling loop with budgets, guards and evals, plus tiny specialist models (“mini-brains”) as tools.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · Architecture -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Architecture</div>
+    <h2>Workers produce, one thread writes, everyone reads a snapshot</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 1010 390" role="img" aria-label="Worker threads push observation batches into a bounded queue; the main thread is the only writer of the graph and publishes an immutable snapshot that panels and the renderer read">
+        <defs><marker id="rl3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g id="g_workers">
+          <text x="20" y="28" class="m sm">WORKER THREADS · produce</text>
+          <rect x="20" y="42" width="196" height="34" rx="4"/><text x="34" y="64">discovery · ~1 Hz</text>
+          <rect x="20" y="92" width="196" height="34" rx="4"/><text x="34" y="114">diagnostics · logs</text>
+          <rect x="20" y="142" width="196" height="34" rx="4"/><text x="34" y="164">URDF fetch · meshes</text>
+          <rect x="20" y="192" width="196" height="34" rx="4"/><text x="34" y="214">MoveIt · Nav2 · Gazebo</text>
+          <rect x="20" y="242" width="196" height="34" rx="4" class="dash"/><text x="34" y="264">MCP transport</text>
+        </g>
+        <g id="g_edges_in">
+          <line x1="216" y1="59" x2="286" y2="170" marker-end="url(#rl3)"/>
+          <line x1="216" y1="109" x2="286" y2="176" marker-end="url(#rl3)"/>
+          <line x1="216" y1="159" x2="286" y2="182" marker-end="url(#rl3)"/>
+          <line x1="216" y1="209" x2="286" y2="190" marker-end="url(#rl3)"/>
+          <line x1="216" y1="259" x2="286" y2="198" marker-end="url(#rl3)" class="dash"/>
+        </g>
+        <g id="g_queue">
+          <polygon points="290,160 420,160 434,146 304,146" class="tint"/><polygon points="290,160 420,160 434,146 304,146"/>
+          <polygon points="420,160 434,146 434,196 420,210"/>
+          <rect x="290" y="160" width="130" height="50"/>
+          <line x1="316" y1="160" x2="316" y2="210"/><line x1="342" y1="160" x2="342" y2="210"/><line x1="368" y1="160" x2="368" y2="210"/><line x1="394" y1="160" x2="394" y2="210" class="fade"/>
+          <text x="290" y="232" class="sm">bounded queue</text><text x="290" y="247" class="m sm">ObservationBatch</text>
+        </g>
+        <g id="g_main">
+          <line x1="434" y1="185" x2="486" y2="185" marker-end="url(#rl3)" class="hi"/>
+          <text x="438" y="176" class="m sm">drain</text>
+          <rect x="490" y="120" width="190" height="130" rx="6" class="acc thick"/>
+          <text x="508" y="148" class="h">Main thread</text>
+          <text x="508" y="172" class="a">single writer</text>
+          <text x="508" y="200">Graph::applyBatch()</text>
+          <text x="508" y="222" class="m sm">deterministic deltas</text>
+        </g>
+        <g id="g_snapshot">
+          <line x1="680" y1="200" x2="732" y2="200" marker-end="url(#rl3)" class="hi"/>
+          <text x="684" y="190" class="m sm">publish</text>
+          <rect x="752" y="150" width="150" height="74" rx="4" class="fade"/>
+          <rect x="744" y="158" width="150" height="74" rx="4" class="fade"/>
+          <rect x="736" y="166" width="150" height="74" rx="4" class="hi"/>
+          <text x="750" y="196" class="h">GraphSnapshot</text>
+          <text x="750" y="216" class="m sm">immutable · per frame</text>
+        </g>
+        <g id="g_readers">
+          <rect x="920" y="96" width="80" height="46" rx="4"/><text x="932" y="116">ImGui</text><text x="932" y="132" class="m sm">panels</text>
+          <rect x="920" y="262" width="80" height="46" rx="4"/><text x="932" y="282">Vulkan</text><text x="932" y="298" class="m sm">renderer</text>
+          <line x1="886" y1="180" x2="918" y2="130" marker-end="url(#rl3)"/>
+          <line x1="886" y1="226" x2="918" y2="274" marker-end="url(#rl3)"/>
+          <text x="920" y="160" class="m sm">read-only</text><text x="920" y="326" class="m sm">read-only</text>
+        </g>
+        <g id="g_commands">
+          <polyline points="960,96 960,62 585,62 585,116" class="dash" marker-end="url(#rl3)"/>
+          <text x="600" y="54" class="m sm">edits return as typed commands · never direct mutation</text>
+        </g>
+        <g id="g_labels">
+          <text x="490" y="290" class="sm">no locks on the UI path · one consistent frame</text>
+          <text x="490" y="308" class="m sm">failed ROS queries → last good state survives</text>
+        </g>
+      </svg>
+      <figcaption>ADR 0004: the graph has one logical writer. Workers never touch shared state, and readers get an immutable snapshot once per frame. It's the same idea as Redux: a single source of truth.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 4 · Decisions -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Architecture decisions</div>
+    <h2>What I chose, and what I didn't</h2>
+    <div class="tbl"><table class="dec">
+      <thead><tr><th>Decision</th><th>Rejected</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Single writer + immutable snapshots</td><td>Shared graph with locks</td><td>No lock contention on the UI path; consistent frames; deterministic add/update/stale/remove deltas</td></tr>
+        <tr><td>Domain graph independent of ROS, ImGui, Vulkan, JSON</td><td>ROS types everywhere</td><td>Core logic testable without a robot; adapters at the edges; backends swappable (ADR 0022)</td></tr>
+        <tr><td>Stable entity IDs from kind + source + identity</td><td>Pointers / counters</td><td>Selection survives reconnects, reloads and snapshots; shared across every panel</td></tr>
+        <tr><td>Dirty-domain invalidation (bit flags)</td><td>Rebuild the scene on any change</td><td>A transform change updates matrices only; a display message re-renders displays only</td></tr>
+        <tr><td>Fence-safe resource retirement</td><td>Destroy immediately</td><td>With 2 frames in flight the GPU may still read it; avoids device-lost crashes</td></tr>
+        <tr><td>MCP read-only, actions via propose → approve</td><td>Let agents act directly</td><td>A robot is physical; humans approve with risk shown; the same typed commands as the UI</td></tr>
+        <tr><td>57 written ADRs</td><td>Decisions in chat</td><td>Reasons survive; new contributors and AI agents follow the same boundaries</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- 5 · Incremental snapshots -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Feature · performance</div>
+    <h2>Incremental snapshots: 60 ms → 1.5 ms</h2>
+    <p class="sub">With 12,000 entities, rebuilding the whole snapshot on every change caused visible hitches. I split it into one block per entity kind: rebuild only the changed kinds and share the rest with the previous snapshot.</p>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 980 350" role="img" aria-label="Snapshot N plus one rebuilds only the Topics block and shares the other four blocks with snapshot N by reference">
+        <defs><marker id="rl5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g id="g_labels"><text x="120" y="30" class="h">Snapshot N</text><text x="520" y="30" class="h">Snapshot N + 1</text></g>
+        <g id="g_left">
+          <rect x="120" y="50" width="180" height="38" rx="4"/><text x="136" y="74">Nodes</text>
+          <rect x="120" y="104" width="180" height="38" rx="4" class="fade"/><text x="136" y="128" class="m">Topics (old)</text>
+          <rect x="120" y="158" width="180" height="38" rx="4"/><text x="136" y="182">TF frames</text>
+          <rect x="120" y="212" width="180" height="38" rx="4"/><text x="136" y="236">Diagnostics</text>
+          <rect x="120" y="266" width="180" height="38" rx="4"/><text x="136" y="290">Logs</text>
+        </g>
+        <g id="g_right">
+          <rect x="520" y="50" width="180" height="38" rx="4" class="dash"/><text x="536" y="74" class="m">→ shared</text>
+          <rect x="520" y="104" width="180" height="38" rx="4" class="acc thick"/><text x="536" y="128" class="a">Topics · rebuilt</text>
+          <rect x="520" y="158" width="180" height="38" rx="4" class="dash"/><text x="536" y="182" class="m">→ shared</text>
+          <rect x="520" y="212" width="180" height="38" rx="4" class="dash"/><text x="536" y="236" class="m">→ shared</text>
+          <rect x="520" y="266" width="180" height="38" rx="4" class="dash"/><text x="536" y="290" class="m">→ shared</text>
+        </g>
+        <g id="g_refs">
+          <line x1="518" y1="69" x2="304" y2="69" class="dash" marker-end="url(#rl5)"/>
+          <line x1="518" y1="177" x2="304" y2="177" class="dash" marker-end="url(#rl5)"/>
+          <line x1="518" y1="231" x2="304" y2="231" class="dash" marker-end="url(#rl5)"/>
+          <line x1="518" y1="285" x2="304" y2="285" class="dash" marker-end="url(#rl5)"/>
+          <text x="380" y="60" class="m sm">same pointer</text>
+        </g>
+        <g id="g_numbers">
+          <text x="760" y="110" class="m sm">FULL REBUILD</text><text x="760" y="136" class="lg" style="text-decoration:line-through;opacity:.5">~60 ms</text>
+          <text x="760" y="186" class="a sm">INCREMENTAL</text><text x="760" y="212" class="lg" style="fill:var(--accent)">~1.5 ms</text>
+          <text x="120" y="334" class="a sm">change: /scan QoS updated → only the Topics block is rebuilt</text><text x="760" y="250" class="m sm">+ cached ID hashes</text><text x="760" y="266" class="m sm">+ refs instead of copies</text>
+        </g>
+      </svg>
+      <figcaption>Structural sharing, the same trick immutable data libraries use. Being immutable doesn't mean copying everything. It's measured in commit <code>a72c1bf9</code>, which also stopped one display message from rebuilding the scene (~30 ms).</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6 · GPU culling -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Feature · GPU-driven rendering</div>
+    <h2>Compute culling writes its own draw calls</h2>
+    <p class="sub">Instead of CPU culling and one draw per visible instance, a compute shader tests every instance and writes <code>VkDrawIndirectCommand</code>s. The CPU issues one indirect draw per topology group.</p>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 980 360" role="img" aria-label="Cull records flow into a compute pass that tests frustum and Hi-Z occlusion and writes indirect draw commands with instance count one or zero, which drive vkCmdDrawIndirect">
+        <defs><marker id="rl6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g id="g_records">
+          <polygon points="30,170 190,170 204,156 44,156" class="tint"/><polygon points="30,170 190,170 204,156 44,156"/>
+          <polygon points="190,170 204,156 204,206 190,220"/>
+          <rect x="30" y="170" width="160" height="50"/>
+          <line x1="70" y1="170" x2="70" y2="220"/><line x1="110" y1="170" x2="110" y2="220"/><line x1="150" y1="170" x2="150" y2="220"/>
+          <text x="30" y="244" class="h">MeshCullRecord[]</text><text x="30" y="262" class="m sm">112 B · std430 · per instance</text>
+          <text x="30" y="278" class="m sm">AABB + model + draw range</text>
+        </g>
+        <g id="g_hzb">
+          <rect x="372" y="36" width="60" height="40" rx="2" class="dash"/><rect x="384" y="44" width="36" height="24" rx="2" class="dash"/><rect x="394" y="50" width="16" height="12" rx="1" class="dash"/>
+          <text x="444" y="54" class="sm">Hi-Z pyramid</text><text x="444" y="70" class="m sm">from last frame's depth</text>
+          <line x1="402" y1="80" x2="402" y2="124" class="dash" marker-end="url(#rl6)"/>
+        </g>
+        <g id="g_compute">
+          <rect x="300" y="130" width="200" height="130" rx="6" class="acc thick"/>
+          <text x="316" y="154" class="h">mesh_cull.comp</text>
+          <g id="g_threads">
+            <rect x="316" y="166" width="14" height="14"/><rect x="336" y="166" width="14" height="14"/><rect x="356" y="166" width="14" height="14"/><rect x="376" y="166" width="14" height="14"/>
+            <rect x="316" y="186" width="14" height="14"/><rect x="336" y="186" width="14" height="14"/><rect x="356" y="186" width="14" height="14" class="fade"/><rect x="376" y="186" width="14" height="14"/>
+          </g>
+          <text x="404" y="178" class="m sm">1 thread</text><text x="404" y="192" class="m sm">per instance</text>
+          <text x="316" y="222" class="sm">① frustum: positive-vertex</text>
+          <text x="316" y="240" class="sm">② occluded by Hi-Z?</text>
+        </g>
+        <g id="g_cmds">
+          <polygon points="580,170 760,170 774,156 594,156" class="tint"/><polygon points="580,170 760,170 774,156 594,156"/>
+          <polygon points="760,170 774,156 774,206 760,220"/>
+          <rect x="580" y="170" width="180" height="50"/>
+          <line x1="616" y1="170" x2="616" y2="220"/><line x1="652" y1="170" x2="652" y2="220"/><line x1="688" y1="170" x2="688" y2="220"/><line x1="724" y1="170" x2="724" y2="220"/>
+          <text x="594" y="200" class="a">1</text><text x="630" y="200" class="m">0</text><text x="666" y="200" class="a">1</text><text x="702" y="200" class="a">1</text><text x="738" y="200" class="m">0</text>
+          <text x="580" y="244" class="h">VkDrawIndirectCommand[]</text><text x="580" y="262" class="m sm">instanceCount = visible ? 1 : 0</text>
+        </g>
+        <g id="g_draw">
+          <rect x="830" y="160" width="130" height="70" rx="6" class="hi"/>
+          <text x="846" y="188" class="h">DrawIndirect</text><text x="846" y="208" class="m sm">1 per topology</text><text x="846" y="222" class="m sm">group</text>
+        </g>
+        <g id="g_flow">
+          <line x1="206" y1="190" x2="296" y2="190" marker-end="url(#rl6)" class="hi"/>
+          <text x="214" y="140" class="m sm">HOST→COMPUTE</text><text x="214" y="154" class="m sm">barrier</text>
+          <line x1="500" y1="195" x2="576" y2="195" marker-end="url(#rl6)" class="hi"/>
+          <line x1="776" y1="195" x2="826" y2="195" marker-end="url(#rl6)" class="hi"/>
+          <text x="776" y="140" class="m sm">COMPUTE→</text><text x="776" y="154" class="m sm">DRAW_INDIRECT</text>
+        </g>
+        <g id="g_notes"><text x="300" y="312" class="sm">double-buffered records · commands · stats (2 frames in flight) · stats read back one frame late</text></g>
+      </svg>
+      <figcaption>GP-10 (compute culling and indirect draws) and GP-12 (Hi-Z occlusion). A CPU reference implementation mirrors the shader math, so the tests prove both give the same answer.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 7 · Hi-Z -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Feature · occlusion culling</div>
+    <h2>Hi-Z: skip what's hidden behind other things</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 980 360" role="img" aria-label="A depth pyramid built by two by two max reduction; an object footprint is tested at the mip where it covers about one texel">
+        <defs><marker id="rl7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g id="g_mip0">
+          <rect x="40" y="60" width="200" height="200"/>
+          <line x1="65" y1="60" x2="65" y2="260" class="fade"/><line x1="90" y1="60" x2="90" y2="260" class="fade"/><line x1="115" y1="60" x2="115" y2="260" class="fade"/><line x1="140" y1="60" x2="140" y2="260" class="fade"/><line x1="165" y1="60" x2="165" y2="260" class="fade"/><line x1="190" y1="60" x2="190" y2="260" class="fade"/><line x1="215" y1="60" x2="215" y2="260" class="fade"/>
+          <line x1="40" y1="85" x2="240" y2="85" class="fade"/><line x1="40" y1="110" x2="240" y2="110" class="fade"/><line x1="40" y1="135" x2="240" y2="135" class="fade"/><line x1="40" y1="160" x2="240" y2="160" class="fade"/><line x1="40" y1="185" x2="240" y2="185" class="fade"/><line x1="40" y1="210" x2="240" y2="210" class="fade"/><line x1="40" y1="235" x2="240" y2="235" class="fade"/>
+          <rect x="98" y="118" width="84" height="58" class="acctint"/>
+          <text x="40" y="48" class="h">mip 0 · scene depth</text><text x="98" y="196" class="a sm">AABB footprint</text>
+        </g>
+        <g id="g_mip1">
+          <rect x="300" y="110" width="100" height="100"/>
+          <line x1="325" y1="110" x2="325" y2="210" class="fade"/><line x1="350" y1="110" x2="350" y2="210" class="fade"/><line x1="375" y1="110" x2="375" y2="210" class="fade"/>
+          <line x1="300" y1="135" x2="400" y2="135" class="fade"/><line x1="300" y1="160" x2="400" y2="160" class="fade"/><line x1="300" y1="185" x2="400" y2="185" class="fade"/>
+          <text x="300" y="98" class="h">mip 1</text>
+        </g>
+        <g id="g_mip2">
+          <rect x="470" y="135" width="50" height="50"/>
+          <line x1="495" y1="135" x2="495" y2="185" class="fade"/><line x1="470" y1="160" x2="520" y2="160" class="fade"/>
+          <rect x="470" y="135" width="25" height="25" class="acctint"/>
+          <text x="470" y="123" class="h">mip 2</text><text x="470" y="204" class="a sm">≈ 1 texel</text>
+        </g>
+        <g id="g_reduce">
+          <line x1="246" y1="160" x2="294" y2="160" marker-end="url(#rl7)"/><text x="250" y="150" class="m sm">2×2 max</text>
+          <line x1="404" y1="160" x2="464" y2="160" marker-end="url(#rl7)"/><text x="406" y="150" class="m sm">2×2 max</text>
+        </g>
+        <g id="g_logic">
+          <rect x="560" y="60" width="400" height="200" rx="6"/>
+          <text x="580" y="90" class="h">Per instance, in the cull shader</text>
+          <text x="580" y="118" class="sm">1  project the 8 AABB corners → screen rectangle</text>
+          <text x="580" y="140" class="sm">2  level = ceil(log2(largest side in px))</text>
+          <text x="580" y="162" class="sm">3  read the texels under it (+1 border)</text>
+          <text x="580" y="184" class="sm">4  hidden if its nearest depth is behind</text>
+          <text x="580" y="200" class="sm">   the stored max depth everywhere</text>
+          <text x="580" y="230" class="m sm">corner behind near plane → no decision (draw it)</text>
+        </g>
+        <g id="g_bug">
+          <rect x="560" y="276" width="400" height="70" rx="6" class="acc dash"/>
+          <text x="580" y="298" class="a sm">BUG I FIXED · GPU hang (device lost)</text>
+          <text x="580" y="316" class="sm">near-plane footprints made the texel loop unbounded</text>
+          <text x="580" y="334" class="sm">fix: clamp to viewport + CPU mirror + regression test</text>
+        </g>
+      </svg>
+      <figcaption>Max reduction keeps the <b>farthest</b> depth per texel, so “behind everything stored here” is a safe, conservative test. The pyramid is built from depth the scene already wrote, so it costs one small compute pass.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 8 · Point cloud residency -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Feature · memory</div>
+    <h2>Point clouds bigger than one GPU buffer</h2>
+    <p class="sub">A single cloud can exceed one practical GPU allocation, and scrubbing a recording grows memory. Over a byte budget, only visible chunks become resident, in slot arenas with LRU reuse (ADR 0034).</p>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 980 360" role="img" aria-label="Visible chunks are requested nearest first, placed into fixed GPU slots, least recently used slots are reused, and buffers are only destroyed after the in-flight frame's fence signals">
+        <defs><marker id="rl8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g id="g_cloud">
+          <text x="30" y="40" class="h">cloud → fixed-size chunks</text>
+          <g class="fade">
+            <rect x="30" y="60" width="40" height="40"/><rect x="70" y="60" width="40" height="40"/><rect x="110" y="60" width="40" height="40"/><rect x="150" y="60" width="40" height="40"/><rect x="190" y="60" width="40" height="40"/><rect x="230" y="60" width="40" height="40"/>
+            <rect x="30" y="100" width="40" height="40"/><rect x="230" y="100" width="40" height="40"/>
+            <rect x="30" y="140" width="40" height="40"/><rect x="230" y="140" width="40" height="40"/>
+            <rect x="30" y="180" width="40" height="40"/><rect x="70" y="180" width="40" height="40"/><rect x="190" y="180" width="40" height="40"/><rect x="230" y="180" width="40" height="40"/>
+          </g>
+          <rect x="70" y="100" width="40" height="40" class="hi"/><rect x="110" y="100" width="40" height="40" class="hi"/><rect x="150" y="100" width="40" height="40" class="hi"/><rect x="190" y="100" width="40" height="40" class="hi"/>
+          <rect x="70" y="140" width="40" height="40" class="hi"/><rect x="110" y="140" width="40" height="40" class="acc thick"/><rect x="150" y="140" width="40" height="40" class="hi"/><rect x="190" y="140" width="40" height="40" class="hi"/>
+          <rect x="110" y="180" width="40" height="40" class="hi"/><rect x="150" y="180" width="40" height="40" class="hi"/>
+          <circle cx="150" cy="290" r="14"/>
+          <line x1="150" y1="276" x2="60" y2="96" class="dash"/><line x1="150" y1="276" x2="240" y2="96" class="dash"/>
+          <text x="172" y="294" class="m sm">camera</text>
+          <text x="30" y="246" class="sm">in view = requested, nearest first</text>
+        </g>
+        <g id="g_arena">
+          <text x="360" y="40" class="h">GPU slot arena · byte budget</text>
+          <polygon points="360,130 660,130 674,116 374,116" class="tint"/><polygon points="360,130 660,130 674,116 374,116"/>
+          <polygon points="660,130 674,116 674,166 660,180"/>
+          <rect x="360" y="130" width="300" height="50"/>
+          <line x1="410" y1="130" x2="410" y2="180"/><line x1="460" y1="130" x2="460" y2="180"/><line x1="510" y1="130" x2="510" y2="180"/><line x1="560" y1="130" x2="560" y2="180"/><line x1="610" y1="130" x2="610" y2="180"/>
+          <text x="372" y="160" class="sm">c14</text><text x="422" y="160" class="sm">c15</text><text x="472" y="160" class="sm">c21</text><text x="522" y="160" class="sm">c22</text><text x="572" y="160" class="a sm">c9 ←</text><text x="622" y="160" class="sm">c16</text>
+          <text x="440" y="204" class="a sm">least recently used → slot reused</text>
+          <text x="360" y="232" class="m sm">maxResident = ⌊budget / (chunkPts × (pointStep + 32))⌋</text>
+          <text x="360" y="252" class="m sm">one compute dispatch per resident chunk (slot offset)</text>
+          <line x1="276" y1="160" x2="354" y2="155" marker-end="url(#rl8)" class="hi"/>
+          <text x="282" y="148" class="m sm">upload</text>
+        </g>
+        <g id="g_retire">
+          <rect x="740" y="110" width="220" height="90" rx="6" class="dash"/>
+          <text x="756" y="136" class="h">Retirement queue</text>
+          <text x="756" y="158" class="sm">free only when the</text><text x="756" y="174" class="sm">frame's fence signals</text>
+          <text x="756" y="192" class="m sm">2 frames in flight</text>
+          <line x1="676" y1="150" x2="736" y2="150" class="dash" marker-end="url(#rl8)"/>
+          <text x="680" y="140" class="m sm">resize</text>
+        </g>
+        <g id="g_parity"><text x="740" y="240" class="sm">picking uses the same</text><text x="740" y="256" class="sm">translated ranges → you can</text><text x="740" y="272" class="sm">only click what's drawn</text></g>
+      </svg>
+      <figcaption>Eviction only invalidates slots. Arena buffers are destroyed solely through the fence-safe retirement path, so nothing an in-flight frame still reads can be freed.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 9 · Memory layout -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Memory &amp; buffer packing</div>
+    <h2>Vertex 56 → 20 bytes, and the cull record</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 980 380" role="img" aria-label="Byte layouts: the 56-byte float vertex, the 20-byte packed vertex, and the 112-byte std430 cull record">
+        <g id="g_full">
+          <text x="40" y="36" class="h">Vertex · 56 B (float32)</text>
+          <rect x="40" y="48" width="168" height="38"/><text x="50" y="72" class="sm">position 3×f32 · 12</text>
+          <rect x="208" y="48" width="224" height="38"/><text x="218" y="72" class="sm">color 4×f32 · 16</text>
+          <rect x="432" y="48" width="168" height="38"/><text x="442" y="72" class="sm">normal 3×f32 · 12</text>
+          <rect x="600" y="48" width="56" height="38"/><text x="605" y="72" class="sm">met 4</text>
+          <rect x="656" y="48" width="56" height="38"/><text x="661" y="72" class="sm">rgh 4</text>
+          <rect x="712" y="48" width="112" height="38"/><text x="722" y="72" class="sm">uv 2×f32 · 8</text>
+          <text x="834" y="72" class="m sm">14 px = 1 B</text>
+        </g>
+        <g id="g_packed">
+          <text x="40" y="128" class="h">VertexPacked · 20 B</text><text x="210" y="128" class="a sm">2.8× smaller · static_assert(sizeof == 20)</text>
+          <rect x="40" y="140" width="84" height="38" class="acc"/><text x="46" y="164" class="sm">pos 3×u16</text>
+          <rect x="124" y="140" width="56" height="38" class="acc"/><text x="130" y="164" class="sm">n oct</text>
+          <rect x="180" y="140" width="56" height="38" class="acc"/><text x="186" y="164" class="sm">rgba8</text>
+          <rect x="236" y="140" width="14" height="38" class="acc"/>
+          <rect x="250" y="140" width="14" height="38" class="acc"/>
+          <rect x="264" y="140" width="56" height="38" class="acc"/><text x="268" y="164" class="sm">uv f16</text>
+          <text x="40" y="196" class="m sm">0</text><text x="120" y="196" class="m sm">6</text><text x="172" y="196" class="m sm">10</text><text x="228" y="196" class="m sm">14</text><text x="258" y="196" class="m sm">16</text><text x="312" y="196" class="m sm">20</text>
+          <text x="230" y="212" class="m sm">met · rgh u8</text>
+          <text x="360" y="152" class="sm">position: u16 relative to the mesh AABB (min/max in push constants)</text>
+          <text x="360" y="170" class="sm">normal: octahedral 2×snorm16 · UV: half floats</text>
+          <text x="360" y="188" class="sm">shared by 7 pipelines: scene, prepass, 2 shadow, SSAO, picking</text>
+        </g>
+        <g id="g_cull">
+          <text x="40" y="262" class="h">MeshCullRecord · 112 B · std430</text><text x="300" y="262" class="m sm">6 px = 1 B</text>
+          <rect x="40" y="274" width="96" height="38"/><text x="46" y="298" class="sm">localMin 16</text>
+          <rect x="136" y="274" width="96" height="38"/><text x="142" y="298" class="sm">localMax 16</text>
+          <rect x="232" y="274" width="384" height="38"/><text x="244" y="298" class="sm">model mat4 · 64</text>
+          <rect x="616" y="274" width="24" height="38"/><rect x="640" y="274" width="24" height="38"/><rect x="664" y="274" width="24" height="38"/><rect x="688" y="274" width="24" height="38" class="dash"/>
+          <text x="616" y="330" class="m sm">vtxCount · firstVtx · firstInst · pad</text>
+          <text x="740" y="298" class="m sm">vec4-aligned for std430</text>
+        </g>
+      </svg>
+      <figcaption>Fewer bytes per vertex means less memory and less bandwidth for every pass that reads geometry. Layouts are pinned with <code>static_assert</code>s on size and offsets, so the CPU struct can never silently drift from the shader.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 10 · MCP -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Feature · AI</div>
+    <h2>MCP server: agents inspect, humans approve</h2>
+    <figure class="fig">
+      <svg class="dg" viewBox="0 0 980 330" role="img" aria-label="AI clients call read-only tools through a bounded queue resolved on the main thread; actions are only proposals that a person approves before they run as typed commands">
+        <defs><marker id="rl10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9"/></marker></defs>
+        <g id="g_client">
+          <rect x="20" y="60" width="160" height="70" rx="6"/><text x="36" y="88" class="h">AI client</text><text x="36" y="108" class="m sm">Claude Code · Cursor</text><text x="36" y="122" class="m sm">Codex · OpenCode</text>
+        </g>
+        <g id="g_read">
+          <text x="220" y="40" class="m sm">READ PATH · 30+ tools</text>
+          <line x1="180" y1="84" x2="276" y2="84" marker-end="url(#rl10)" class="hi"/><text x="186" y="74" class="m sm">stdio · socket</text>
+          <rect x="280" y="62" width="130" height="44" rx="4"/><text x="292" y="88" class="sm">transport worker</text>
+          <line x1="410" y1="84" x2="466" y2="84" marker-end="url(#rl10)"/>
+          <rect x="470" y="62" width="110" height="44"/><line x1="500" y1="62" x2="500" y2="106"/><line x1="530" y1="62" x2="530" y2="106"/><text x="470" y="122" class="m sm">bounded queue</text>
+          <line x1="580" y1="84" x2="636" y2="84" marker-end="url(#rl10)"/>
+          <rect x="640" y="54" width="170" height="60" rx="6" class="acc thick"/><text x="654" y="78" class="h">main thread</text><text x="654" y="98" class="sm">resolve on snapshot</text>
+          <polyline points="810,84 870,84 870,160 100,160 100,134" class="hi" marker-end="url(#rl10)"/>
+          <text x="200" y="182" class="sm">evidence envelope: result · citations · captured_at · limitations · truncated?</text>
+        </g>
+        <g id="g_act">
+          <text x="220" y="216" class="m sm">ACTION PATH · never autonomous</text>
+          <line x1="100" y1="200" x2="100" y2="250" class="dash"/><line x1="100" y1="250" x2="276" y2="250" class="dash" marker-end="url(#rl10)"/>
+          <text x="112" y="240" class="m sm">propose_*</text>
+          <rect x="280" y="226" width="170" height="48" rx="4"/><text x="292" y="248" class="sm">proposal · risk</text><text x="292" y="264" class="m sm">impact · expiry</text>
+          <line x1="450" y1="250" x2="516" y2="250" marker-end="url(#rl10)"/>
+          <rect x="520" y="226" width="150" height="48" rx="4" class="acc"/><text x="534" y="248" class="a sm">human approves</text><text x="534" y="264" class="m sm">in the app</text>
+          <line x1="670" y1="250" x2="736" y2="250" marker-end="url(#rl10)"/>
+          <rect x="740" y="226" width="200" height="48" rx="4"/><text x="754" y="248" class="sm">typed command</text><text x="754" y="264" class="m sm">same path as the UI</text>
+        </g>
+      </svg>
+      <figcaption>ADR 0035. External processes never mutate state. Tools are resolved on the main thread against immutable snapshots, and every queue, deadline and response size is bounded. Next up is an in-app agent loop (planned) that uses these same tools, with evals from day one.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 11 · Optimizations -->
+<section class="slide">
+  <div class="wrap">
+    <div class="kicker">Optimizations &amp; results</div>
+    <h2>Measured, not guessed</h2>
+    <div class="opts">
+      <div class="opt"><b class="v">40×</b><div><h3>Incremental graph snapshots</h3><p>~60 ms → ~1.5 ms with 12k entities: per-kind blocks and structural sharing.</p></div></div>
+      <div class="opt"><b class="v">2.8×</b><div><h3>Packed vertices</h3><p>56 → 20 bytes: u16 positions, octahedral normals, u8 materials, f16 UVs.</p></div></div>
+      <div class="opt"><b class="v">GPU</b><div><h3>Compute culling + indirect draws</h3><p>The GPU decides visibility and writes its own draw commands.</p></div></div>
+      <div class="opt"><b class="v">Hi-Z</b><div><h3>Occlusion culling</h3><p>A max-reduced depth pyramid; conservative test; device-lost bug fixed with a regression test.</p></div></div>
+      <div class="opt"><b class="v">ΔZ</b><div><h3>Front-to-back sorting</h3><p>Early-Z rejects hidden fragments; less overdraw without a second pass.</p></div></div>
+      <div class="opt"><b class="v">LRU</b><div><h3>Partial residency</h3><p>Byte-budgeted point clouds; 256 MiB history cap; fence-safe freeing.</p></div></div>
+      <div class="opt"><b class="v">dirty</b><div><h3>Dirty-domain invalidation</h3><p>11 flags; a display message no longer rebuilds the scene (~30 ms).</p></div></div>
+      <div class="opt"><b class="v">auto</b><div><h3>Quality profiles</h3><p>GPU timestamps drive MSAA and render scale; picking stays pixel-exact.</p></div></div>
+    </div>
+    <p class="note">Every change is measured before and after on the same scenario, and the perf snapshot (CPU sections, GPU timestamps per pass, memory by owner) is queryable over MCP.</p>
+  </div>
+</section>
+
+</main>
+<script src="assets/deck.js"></script>
+</body>
+</html>
