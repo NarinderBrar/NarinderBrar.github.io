@@ -5,13 +5,20 @@
     set(k, v) { try { localStorage.setItem("deck:" + k, v); } catch (e) {} },
   };
   if (/[?&]all\b/.test(location.search)) document.documentElement.classList.add("all");
+  const params = new URLSearchParams(location.search);
+  const requestedTheme = params.get("theme");
   const saved = store.get("theme");
-  if (saved) document.documentElement.dataset.theme = saved;
+  if (requestedTheme === "light" || requestedTheme === "dark") {
+    document.documentElement.dataset.theme = requestedTheme;
+    store.set("theme", requestedTheme);
+  } else if (saved) {
+    document.documentElement.dataset.theme = saved;
+  }
 
   const deck = document.querySelector(".deck");
   const slides = [...document.querySelectorAll(".slide")];
   const isHome = document.body.dataset.home === "true";
-  const only = parseInt(new URLSearchParams(location.search).get("only") || "", 10);
+  const only = parseInt(params.get("only") || "", 10);
   if (only) slides.forEach((sl, i) => { if (i !== only - 1) sl.style.display = "none"; });
 
   const tl = document.createElement("div");
@@ -37,7 +44,7 @@
     current = i;
     document.getElementById("count").textContent = `${i + 1} / ${slides.length}`;
     bar.style.width = `${((i + 1) / slides.length) * 100}%`;
-    try { history.replaceState(null, "", `#${i + 1}`); } catch (e) {}
+    try { history.replaceState(null, "", `${location.pathname}${location.search}#${i + 1}`); } catch (e) {}
   }
   function go(i) {
     const n = Math.max(0, Math.min(slides.length - 1, i));
